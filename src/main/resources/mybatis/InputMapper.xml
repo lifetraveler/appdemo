@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.InputDao">
+	<select id="queryIn_1_1" parameterType="Integer" resultType="In_1_1">
+		select * from in_1_1
+		<where>
+			<if test="c1 != null">
+				c1 = #{c1}
+			</if>
+		</where>
+		 order by c1
+	</select>
+	
+	<insert id="insertIn_1_1" parameterType="In_1_1">
+		insert into in_1_1 values
+		(#{c1},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{c9},#{c10},#{c11},#{c12},#{c13},#{c14},#{c15})
+	</insert>
+	
+	<update id="updateIn_1_1" parameterType="In_1_1">
+		update in_1_1 set
+		c2 = #{c2},c3 = #{c3},c4 = #{c4},c5 = #{c5},c6 = #{c6},c7 = #{c7},c8 = #{c8},c9 = #{c9},c10 = #{c10},c11 = #{c11},c12 = #{c12},c13 = #{c13},c14 = #{c14},c15 = #{c15}
+		where c1 = #{c1}
+	</update>
+	
+	<delete id="deleteIn_1_1" parameterType="int">
+		delete from in_1_1 where c1 = #{c1}
+	</delete>
+	
+	
+	<select id="queryIn_2_2_1" resultType="In_2_2_1" parameterType="In_2_2_1">
+		 select c1,
+			avg(nvl(c2,0)) c2,
+			avg(nvl(c3,0)) c3,
+			avg(nvl(c4,0)) c4,
+			avg(nvl(c5,0)) c5,
+			avg(nvl(c6,0)) c6,
+			avg(nvl(c7,0)) c7,
+			avg(nvl(c8,0)) c8
+		 from in_2_2_1
+		<where>
+			<if test="loc_id != '100000'">
+				loc_id = #{loc_id}
+			</if>
+		</where>
+		group by c1
+		order by c0
+	</select>
+	
+	<insert id="insertIn_2_2_1" parameterType="In_2_2_1">
+		insert into in_2_2_1 values
+		(#{c0},#{c1},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{dep_id},#{year})
+	</insert>
+	
+	<update id="updateIn_2_2_1" parameterType="In_2_2_1">
+		update in_2_2_1 set
+		c2 = #{c2},c3 = #{c3},c4 = #{c4},c5 = #{c5},c6 = #{c6},c7 = #{c7},c8 = #{c8}
+		where c1 = #{c1} 
+	</update>
+	  
+	<delete id="deleteIn_2_2_1" parameterType="In_2_2_1">
+		delete from in_2_2_1 where c1 = #{c1}
+	</delete>
+</mapper> 

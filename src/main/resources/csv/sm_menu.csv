@@ -1,0 +1,5 @@
+menu_id,menu_desc,parent_id,menu_order,menu_url
+right,权限管理,,0,
+user,用户管理,right,,/user
+menu,菜单管理,right,,/menu
+role,角色管理,right,,/role

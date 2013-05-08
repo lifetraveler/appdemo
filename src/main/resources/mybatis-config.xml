@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<plugins>
+		<plugin interceptor="com.zoc.common.page.StatementHandlerInterceptor">
+			<property name="dialectClass" value="com.zoc.common.page.dialect.H2Dialect"/>
+		</plugin>
+		<plugin interceptor="com.zoc.common.page.ResultSetHandlerInterceptor">
+		</plugin>
+	</plugins>
+</configuration>
