@@ -24,6 +24,24 @@
 	.hideFieldset .fieldset-body {
 		display: none;
 	}
+	
+    .asLabel .mini-textbox-border,
+    .asLabel .mini-textbox-input,
+    .asLabel .mini-buttonedit-border,
+    .asLabel .mini-buttonedit-input,
+    .asLabel .mini-textboxlist-border
+    {
+        border:0;background:none;cursor:default;
+    }
+    .asLabel .mini-buttonedit-button,
+    .asLabel .mini-textboxlist-close
+    {
+        display:none;
+    }
+    .asLabel .mini-textboxlist-item
+    {
+        padding-right:8px;
+    }    
     </style>  
 </head>
 <body>
@@ -36,7 +54,7 @@
 	        </div>
 	        <div class="mini-fit">
 	            <ul id="tree1" class="mini-tree" url="<%=basePath%>/menu/list" style="width:100%;"
-	                showTreeIcon="true" textField="menu_desc" idField="menu_id" parentField="parent_id" resultAsTree="false">        
+	                showTreeIcon="true" textField="menu_desc" idField="menu_id" parentField="parent_id" resultAsTree="false" >        
 	            </ul>
 	        </div>
 		</div>
@@ -44,11 +62,13 @@
 			<div class="mini-toolbar"
 				style="padding: 2px; border-top: 0; border-left: 0; border-right: 0;">
 
-				<a class="mini-button" iconCls="icon-add" plain="true"
-					onclick="addRow()">新增</a> <a class="mini-button"
-					iconCls="icon-remove" plain="true" onclick="removeRow()">删除</a> <span
-					class="separator"></span> <a class="mini-button"
-					iconCls="icon-save" plain="true" onclick="saveData()">保存</a>
+				<a class="mini-button" iconCls="icon-add" plain="true" onclick="addRow()">新增</a> 
+				<span class="separator"></span> 
+				<a class="mini-button" iconCls="icon-edit" plain="true" onclick="updateRow()">修改</a> 
+				<span class="separator"></span> 
+				<a class="mini-button" iconCls="icon-remove" plain="true" onclick="removeRow()">删除</a> 
+				<span class="separator"></span> 
+				<a class="mini-button" iconCls="icon-save" plain="true" onclick="saveData()">保存</a>
 			</div>
 			<div class="mini-fit" style="padding-left:50px">
 			<!-- 基本信息 -->
@@ -57,26 +77,28 @@
 						<span>菜单信息</span>
 					</legend>
 					<div class="fieldset-body">
+					<input  name="state" class="mini-hidden" />
 						<table class="form-table" border="0" cellpadding="1" cellspacing="2">
 							<tr>
 								<td class="form-label" style="width: 60px;">菜单编号：</td>
-								<td style="width: 150px"><input name="name"
+								<td style="width: 150px"><input name="menu_id"
 									class="mini-textbox" /></td>
 								<td class="form-label" style="width: 60px;">菜单名称：</td>
-								<td style="width: 150px"><input name="addr"
+								<td style="width: 150px"><input name="menu_desc"
 									class="mini-textbox" /></td>
 							</tr>
 							<tr>
 								<td class="form-label">上级菜单：</td>
-								<td style="width: 150px"><input name="addr"
-									class="mini-textbox" /></td>
+								<td style="width: 150px">
+									<input name="parent_id" class="mini-treeselect"  url="<%=basePath%>/menu/list"  textField="menu_desc" valueField="menu_id"  parentField="parent_id" resultAsTree="false" />
+								</td>
 								<td class="form-label">显示顺序：</td>
 								<td><input name="menu_order" class="mini-spinner" /></td>
 							</tr>
 							<tr>
 								<td class="form-label">菜单路径：</td>
 								<td colspan="3" >
-									<input name="addr" class="mini-textbox"  style="width:344px"></input>
+									<input name="menu_url" class="mini-textbox"  style="width:344px"></input>
 								</td>
 							</tr>
 						</table>
@@ -140,16 +162,65 @@
 	
 	<script type="text/javascript">
 	 	mini.parse();
+	 	var tree = mini.get("tree1");
 	 	var grid = mini.get("serachGrid");
 	 	var selectedList = mini.get("selectedList");
 	 	var keyText = mini.get("keyText");
+	 	var form = new mini.Form("fd1");
 	 	grid.load();
+	 	readonlyModel();
+	 	
+	 	tree.on("nodeselect", function (e) {
+	 		 readonlyModel();
+	 		 selectedList.removeAll();
+		   //  selectedList.load("<%=basePath%>/menu/listPermissionById"); 
+        });
+	 	
+	 	function readonlyModel(){
+	 		var fields = form.getFields();
+	 		for (var i = 0, l = fields.length; i < l; i++) {
+	            var c = fields[i];
+	            if (c.setReadOnly) c.setReadOnly(true);     //只读
+	            if (c.addCls) c.addCls("asLabel");          //增加asLabel外观
+	        }
+	 	}
+	 	
+	 	function editModel(callback){
+	 		var fields = form.getFields();
+            for (var i = 0, l = fields.length; i < l; i++) {
+                var c = fields[i];
+                if (c.setReadOnly) c.setReadOnly(false);
+                if (c.removeCls) c.removeCls("asLabel");
+                if(callback) callback(c);
+            }
+            mini.repaint(document.body);
+	 	}
 	 	
 	 	function onSearchClick(e) {
             grid.load({
                 permission: keyText.value
             });
         }
+	 	
+	 	function addRow(){
+	 		editModel();
+            form.reset();
+            form.setData({state:'added'});
+	 	}
+	 	
+	 	function updateRow(){
+	 		editModel(function(field){
+	 			if(field.name == 'menu_id'){
+	 				if (field.setReadOnly) field.setReadOnly(true);     //只读
+		            if (field.addCls) field.addCls("asLabel");          //增加asLabel外观
+	 			};
+	 		});
+	 		form.setData({state:'modified'});
+	 	}
+	 	
+	 	function deleteRow(){
+	 		
+	 	}
 	 	
 	 	function addSelected(){
 	 		var items = grid.getSelecteds();
