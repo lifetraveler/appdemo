@@ -28,6 +28,10 @@ public abstract class SuperUtils {
 		return JSON.parseArray(text.replace("_state", "state").replace("_uid", "uid").replace("_index", "index"), clazz);
 	}
 	
+	public static final <T> T parseObject(String text,Class<T> clazz){
+		return JSON.parseObject(text, clazz);
+	}
+	
 	public static boolean isNullOrEmpty(Object obj) {	
 		return obj == null || "".equals(obj.toString());
 	}

@@ -25,5 +25,11 @@ import com.zoc.entity.security.User;
  */
 @MyBatisRepository
 public interface MenuDao extends SuperDao<Menu>{
+	
+	public List<Menu> listChildren(Menu menu);
+	
+	public Menu fetchByPermission(String menu_id);
+	
+	public void insertMenuPermission(String menu_id,String permission);
 
 }

@@ -3,7 +3,69 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.zoc.repository.security.MenuDao">
+
+	<resultMap type="Menu" id="menuResult">
+		<id property="menu_id" column="menu_id"/>
+		<result property="menu_desc" column = "menu_desc"/>
+		<result property="menu_order" column="menu_order"/> 
+		<result property="menu_url" column="menu_url"/>
+		<result property="parent_id" column="parent_id"/>
+		<collection property="permissions" ofType="Permission">
+			<result property="permission" column="permission"/>
+		</collection>
+	</resultMap>
+
 	<select id="list" parameterType="Menu" resultType="Menu">
 		select * from sm_menu
+		<where>
+			<if test="parent_id != null">
+				parent_id = #{parent_id}
+			</if>
+		</where>
+		order by menu_order
 	</select>
+	
+	<select id="listChildren" parameterType="Menu" resultType="Menu">
+		select * from sm_menu
+		<where>
+			<if test="menu_id != null">
+				parent_id = #{menu_id}
+			</if>
+		</where>	
+		order by menu_order
+	</select>
+	
+	<select id="fetchByPermission" parameterType="String" resultMap="menuResult">
+		select * from sm_menu a 
+		left join sm_menu_permission b on a.menu_id = b.menu_id
+		where a.menu_id = #{menu_id}
+	</select>
+	
+	
+	
+	<insert id="insert" parameterType="Menu">
+		insert into sm_menu values
+		(#{menu_id},#{menu_desc},#{parent_id},#{menu_order},#{menu_url})
+	</insert>
+	
+	<insert id="insertMenuPermission" parameterType="String">
+		insert into sm_menu_permission
+		values
+		(#{param1},#{param2})
+	</insert>
+	
+	<update id="update" parameterType="Menu">
+		update sm_menu
+		set menu_desc = #{menu_desc}, parent_id = #{parent_id}, menu_order = #{menu_order}, menu_url = #{menu_url}
+		where menu_id = #{menu_id}
+	</update>
+	
+	<delete id="delete" parameterType="Menu">
+		delete from sm_menu where menu_id = #{menu_id}
+	</delete>
+	
+	<select id="fetchByName" parameterType="Menu" resultType="Menu">
+		select * from sm_menu where menu_id = #{menu_id}
+	</select>
+	
 </mapper> 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zoc.common.repository.SuperDao;
 import com.zoc.common.service.SuperService;
+import com.zoc.entity.act.In_1_1;
 
 public abstract class SuperServiceImpl<T, ID extends Serializable> {
 
@@ -62,6 +63,18 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 	public void remove(T t) {
 		sqlSession.delete(statement + ".delete", t);
 
+	}
+
+	public void save(T t, String state) {
+		if (state.equals("added")) // 新增：id为空，或_state为added
+		{
+			add(t);
+		} else if (state.equals("removed") || state.equals("deleted")) {
+			remove(t);
+		} else if (state.equals("modified") || state.equals("")) // 更新：_state为空，或modified
+		{
+			modify(t);
+		}
 	}
 
 }

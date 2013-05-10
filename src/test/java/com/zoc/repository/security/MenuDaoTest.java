@@ -8,6 +8,7 @@
 */
 package com.zoc.repository.security;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,6 +21,7 @@ import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import com.alibaba.fastjson.JSON;
 import com.zoc.entity.security.Menu;
+import com.zoc.entity.security.Permission;
 
 /**
  * @author Administrator
@@ -38,8 +40,18 @@ public class MenuDaoTest extends SpringTransactionalTestCase{
 	public void listTest(){
 		List<Menu> menus = menuDao.list(null);
 		logger.debug("result is : {}",JSON.toJSONString(menus) );
-		
-		logger.debug(menuDao.toString());
+	}
+	
+	@Test
+	public void fetchByPermissionTest(){
+		Menu menu = menuDao.fetchByPermission("role");
+		logger.debug("FetchByPermissionTest Result : {}",JSON.toJSONString(menu));
+	}
+	
+	@Test 
+	public void insertMenuPermissionTest(){
+		logger.debug("Begin insertMenuPermissionTest");
+		menuDao.insertMenuPermission("super", "zoc");
 	}
 
 }

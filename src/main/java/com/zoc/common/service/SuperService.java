@@ -27,9 +27,7 @@ public interface SuperService<T, ID extends Serializable> {
 	
 	public void remove(T t);
 	
-	
-	
-	
+	public void save(T t, String state);
 	
 
 }

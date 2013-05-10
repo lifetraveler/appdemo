@@ -7,4 +7,11 @@ import com.zoc.entity.security.Menu;
 import com.zoc.entity.security.User;
 
 public interface MenuService extends SuperService<Menu,Long>{
+	
+	
+	public void removeIncludeChildren(Menu menu);
+	
+	public Menu fetchByPermission(String menu_id);
+	
+	
 }

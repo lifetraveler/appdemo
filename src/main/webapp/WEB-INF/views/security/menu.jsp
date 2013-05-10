@@ -167,13 +167,24 @@
 	 	var selectedList = mini.get("selectedList");
 	 	var keyText = mini.get("keyText");
 	 	var form = new mini.Form("fd1");
+	 	var selectedNode;
 	 	grid.load();
 	 	readonlyModel();
 	 	
 	 	tree.on("nodeselect", function (e) {
+	 		 selectedNode = e;
 	 		 readonlyModel();
 	 		 selectedList.removeAll();
-		   //  selectedList.load("<%=basePath%>/menu/listPermissionById"); 
+	 		 $.ajax({
+	 			url  : '<%=basePath%>/menu/fetchByPermission',
+	 			type : 'post',
+	 			data : {menu_id : e.node.menu_id},
+	 			success : function(menu){
+	 					form.setData(menu);
+	 					selectedList.addItems(menu.permissions);
+	 			}	 
+	 		 });
+	 		 
         });
 	 	
 	 	function readonlyModel(){
@@ -213,13 +224,56 @@
 	 			if(field.name == 'menu_id'){
 	 				if (field.setReadOnly) field.setReadOnly(true);     //只读
 		            if (field.addCls) field.addCls("asLabel");          //增加asLabel外观
-	 			};
+	 			}
+	 			if(field.name == 'state'){
+	 				field.value = 'modified';
+	 			}
 	 		});
-	 		form.setData({state:'modified'});
 	 	}
 	 	
-	 	function deleteRow(){
-	 		
+	 	function deleteRow(message){
+	 		mini.confirm(message, "确定？",
+		            function (action) {            
+		                if (action == "ok") {
+		                	$.ajax({
+		        	 			url  : '<%=basePath%>/menu/remove',
+		        	 			type : 'post',
+		        	 			data : {data:mini.encode(selectedNode.node)},
+		        	 			success : function(text){
+		        	 				alert('提交成功');
+		        	 				tree.load('<%=basePath%>/menu/list');
+		        	 			}
+		        	 		});	
+		                }
+		            }
+ 			    );	
+	 	}
+	 	
+	 	function removeRow(){
+	 		if(selectedNode){
+	 			deleteRow(selectedNode.isLeaf ? '确定删除记录？' : '该菜单下有子菜单，是否删除？');
+	 		}else{
+	 			alert('请选择要删除的菜单');
+	 		}
+	 	}
+	 	
+	 	function saveData(){
+	 		var data = form.getData();
+	 		var permissions = selectedList.getData();
+	 		data.permissions = permissions;
+	 		if(data.state == ''){
+	 			alert('没有数据提交');
+	 			return;
+	 		}
+	 		var json = mini.encode(data);
+	 		$.ajax({
+	 			url  : '<%=basePath%>/menu/save',
+	 			type : 'post',
+	 			data : {data:json},
+	 			success : function(text){
+	 				alert('提交成功');
+	 			}
+	 		});
 	 	}
 	 	
 	 	function addSelected(){
@@ -234,7 +288,6 @@
             var selecteds = selectedList.getData();
             for (var i = 0, l = selecteds.length; i < l; i++) {
                 var o = selecteds[i];
-                console.log(o);
                 var id = o._uid;
                 idMaps[id] = o;
             }

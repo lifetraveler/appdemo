@@ -8,6 +8,8 @@
 */
 package com.zoc.entity.security;
 
+import java.util.List;
+
 import com.zoc.common.entity.AjaxEntity;
 
 /**
@@ -21,6 +23,16 @@ public class Menu extends AjaxEntity {
 	String parent_id;
 	Integer menu_order;
 	String menu_url;
+	
+	List<Permission> permissions;
+	
+	
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
 	/**
 	 * @return the menu_id
 	 */
