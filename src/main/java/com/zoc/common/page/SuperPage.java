@@ -106,4 +106,8 @@ public class SuperPage<T> {
 		this.data = data;
 	}
 
+	public void setObject(List<Object> data) {
+		this.data = (List<T>) data;
+	}
+
 }

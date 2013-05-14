@@ -109,8 +109,6 @@ body {
 		          alert(text);
 		      }
 		      function onQuickClick(e) {
-		          tree.expandPath("data");
-		          tree.selectNode("inner-2-1");
 		      }
 		      
 		      function onCloseClick(e){

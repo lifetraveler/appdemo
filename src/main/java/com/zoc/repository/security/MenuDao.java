@@ -31,5 +31,7 @@ public interface MenuDao extends SuperDao<Menu>{
 	public Menu fetchByPermission(String menu_id);
 	
 	public void insertMenuPermission(String menu_id,String permission);
+	
+	public void deleteMenuPermission(String menu_id);
 
 }

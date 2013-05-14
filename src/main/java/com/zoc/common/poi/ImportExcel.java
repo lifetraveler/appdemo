@@ -25,6 +25,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.zoc.entity.act.UploadParam;
+
 /**
  * @author Administrator
  * 
@@ -40,7 +42,7 @@ public class ImportExcel<T> {
 	/**
 	 * 导入EXCEL
 	 */
-	public Collection<T> importExcel(InputStream in, int offset) {
+	public Collection<T> importExcel(InputStream in, UploadParam param) {
 		Collection<T> dist = new ArrayList<T>();
 
 		try {
@@ -75,13 +77,13 @@ public class ImportExcel<T> {
 			// 得到工作表
 			HSSFWorkbook book = new HSSFWorkbook(in);
 			// 得到第一页
-			HSSFSheet sheet = book.getSheetAt(0);
+			HSSFSheet sheet = book.getSheet(param.getSheet_name());
 			// 得到第一面的所有行
 			Iterator<Row> rows = sheet.rowIterator();
 
 			while (rows.hasNext()) {
 				Row row = rows.next();
-				if (row.getRowNum() < offset)
+				if (row.getRowNum() < param.getRow_start())
 					continue;
 				else {
 					T obj = classzz.newInstance();
@@ -104,8 +106,7 @@ public class ImportExcel<T> {
 
 							break;
 						case Cell.CELL_TYPE_STRING:
-							// em.getMethod().invoke(obj,
-							// cell.getStringCellValue());
+							em.getMethod().invoke(obj, cell.getStringCellValue());
 							break;
 						}
 					}
@@ -120,6 +121,10 @@ public class ImportExcel<T> {
 
 		return dist;
 
+	}
+
+	public Integer getDataYear(InputStream in, int x, int y) {
+		return 2011;
 	}
 
 }

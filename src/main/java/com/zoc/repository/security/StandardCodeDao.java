@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 
 import com.zoc.common.repository.MyBatisRepository;
+import com.zoc.common.repository.SuperDao;
 import com.zoc.entity.security.StandardCode;
 import com.zoc.entity.security.User;
 
@@ -21,14 +22,6 @@ import com.zoc.entity.security.User;
  * 
  */
 @MyBatisRepository
-public interface StandardCodeDao {
-	public List<StandardCode> queryStandardCodeList(StandardCode sc);
-	
-	public List<StandardCode> queryStandardCodeListByPage(StandardCode sc,RowBounds pageBounds);
+public interface StandardCodeDao extends SuperDao<StandardCode> {
 
-	public void insertStandardCode(StandardCode sc);
-
-	public void updateStandardCode(StandardCode sc);
-
-	public void deleteStandardCode(StandardCode sc);
 }

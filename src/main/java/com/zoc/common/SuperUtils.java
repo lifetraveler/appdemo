@@ -11,9 +11,12 @@ package com.zoc.common;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.util.ReflectionUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.zoc.entity.security.User;
 
 /**
  * @author Administrator
@@ -54,4 +57,9 @@ public abstract class SuperUtils {
         ReflectionUtils.makeAccessible(field);  
         ReflectionUtils.setField(field, target, value);  
     }  
+    
+    public static User getSubjectUser(){
+    	Subject currentUser = SecurityUtils.getSubject();
+		return (User) currentUser.getPrincipal();
+    }
 }

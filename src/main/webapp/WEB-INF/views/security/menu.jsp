@@ -217,6 +217,7 @@
 	 		editModel();
             form.reset();
             form.setData({state:'added'});
+            removeAllSelecteds();
 	 	}
 	 	
 	 	function updateRow(){

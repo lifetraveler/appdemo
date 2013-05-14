@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.UploadParamDao">
+
+	<resultMap type="UploadParam" id="uploadParamResult">
+		<id property="menu_id" column="menu_id"/>
+		<result property="template_path" column = "template_path"/>
+		<result property="work_book" column="work_book"/> 
+		<result property="sheet_name" column="sheet_name"/>
+		<result property="row_start" column="row_start"/>
+		<result property="row_end" column="row_end"/>
+		<result property="col_start" column="col_start"/>
+		<result property="col_end" column="col_end"/>
+		<result property="row_year" column="row_year"/>
+		<result property="col_year" column="col_year"/>
+	</resultMap>
+
+	<select id="list" parameterType="UploadParam" resultMap="uploadParamResult">
+		select * from act_upload_param
+		<where>
+			<if test="menuId != null">
+				menu_id = #{menu_id}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="UploadParam">
+		insert into act_upload_param values
+		(#{menu_id},#{template_path},#{work_book},#{sheet_name},#{row_start},#{row_end},#{col_start},#{col_end},#{row_year},#{col_year})
+	</insert>
+	
+	<update id="update" parameterType="UploadParam">
+		update act_upload_param
+		set template_path = #{templatePath}
+		where menu_id = #{menu_id}
+	</update>
+	
+	<delete id="delete" parameterType="UploadParam">
+		delete from act_upload_param where menu_id = #{menu_id}
+	</delete>
+	
+	<select id="fetchByMenuId" parameterType="String" resultType="UploadParam">
+		select * from act_upload_param where menu_id = #{menu_id}
+	</select>
+	
+</mapper> 

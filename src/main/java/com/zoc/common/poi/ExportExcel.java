@@ -8,6 +8,7 @@
  */
 package com.zoc.common.poi;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
@@ -27,15 +28,16 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.nutz.lang.Files;
 
+import com.zoc.entity.act.UploadParam;
+
 /**
  * @author Administrator
  * 
  */
 public class ExportExcel<T> {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //格式化日期 
-	
-	public void exportExcel(String excelPath, Collection<T> dataset, OutputStream out) {
-		try {
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 格式化日期
+
+	public void exportExcel(UploadParam up, Collection<T> dataset, OutputStream out) throws Exception {
 			// 首先检查数据看是否是正确的
 			Iterator<T> its = dataset.iterator();
 			// 取得实际泛型类
@@ -43,9 +45,9 @@ public class ExportExcel<T> {
 			Class tCls = ts.getClass();
 
 			/* get excel template */
-			InputStream in = Files.findFileAsStream(excelPath);
+			InputStream in = Files.findFileAsStream(up.getTemplate_path() + up.getWork_book());
 			HSSFWorkbook workbook = new HSSFWorkbook(in);
-			HSSFSheet sheet = workbook.getSheetAt(0);
+			HSSFSheet sheet = workbook.getSheet(up.getSheet_name());
 
 			// 得到所有字段
 			Field filed[] = ts.getClass().getDeclaredFields();
@@ -66,48 +68,41 @@ public class ExportExcel<T> {
 					maps.add(map);
 				}
 			}
-			int index = 6;
+			int index = up.getRow_start();
 			HSSFRow row;
-			while (its.hasNext()) {
+			for (T t : dataset) {
 				row = sheet.createRow(index);
-				T t = (T) its.next();
 				for (ExcelMap map : maps) {
 					HSSFCell cell = row.createCell(map.getIndex());
 					Object value = map.getMethod().invoke(t, new Object[] {});
-					String textValue = getValue(value);    
-                    cell.setCellValue(textValue); 
+					String textValue = getValue(value);
+					cell.setCellValue(textValue);
 				}
 				index++;
 			}
-			
 			workbook.write(out);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
 
 	}
 
-	@SuppressWarnings({ "static-access" })  
-    private String getValue(Object value) throws ParseException{  
-        String textValue = "";  
-        if(null == value){  
-            return textValue;  
-        }  
-        if(value instanceof Boolean){  
-            boolean bValue = (Boolean)value;  
-            textValue = "是";  
-            if(!bValue){  
-                textValue="否";  
-            }  
-        }else if(value instanceof GregorianCalendar){  
-            GregorianCalendar calendar = (GregorianCalendar)value;  
-            Date d = calendar.getTime();  
-            textValue = sdf.format(d);  
-        }else{  
-            textValue = value.toString();  
-        }  
-        return textValue;  
-    }  
+	@SuppressWarnings({ "static-access" })
+	private String getValue(Object value) throws ParseException {
+		String textValue = "";
+		if (null == value) {
+			return textValue;
+		}
+		if (value instanceof Boolean) {
+			boolean bValue = (Boolean) value;
+			textValue = "是";
+			if (!bValue) {
+				textValue = "否";
+			}
+		} else if (value instanceof GregorianCalendar) {
+			GregorianCalendar calendar = (GregorianCalendar) value;
+			Date d = calendar.getTime();
+			textValue = sdf.format(d);
+		} else {
+			textValue = value.toString();
+		}
+		return textValue;
+	}
 }

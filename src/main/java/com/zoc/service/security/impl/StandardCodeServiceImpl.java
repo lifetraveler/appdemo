@@ -13,64 +13,17 @@ import com.zoc.repository.security.StandardCodeDao;
 import com.zoc.service.security.StandardCodeService;
 import com.zoc.service.security.UserService;
 
-
+import com.zoc.common.service.impl.SuperServiceImpl;
 
 @Service
-public class StandardCodeServiceImpl implements StandardCodeService {
-	
-	private StandardCodeDao standardCodeDao ;
+public class StandardCodeServiceImpl extends SuperServiceImpl<StandardCode, Long> implements StandardCodeService {
 
-	/**
-	 * @param standardCodeDao the standardCodeDao to set
-	 */
 	@Autowired
-	public void setStandardCodeDao(StandardCodeDao standardCodeDao) {
-		this.standardCodeDao = standardCodeDao;
-	}
+	private StandardCodeDao standardCodeDao;
 
-	/* (non-Javadoc)
-	 * @see com.zoc.service.security.StandardCodeService#queryStandardCodeList(com.zoc.entity.security.StandardCode)
-	 */
 	@Override
-	public List<StandardCode> queryStandardCodeList(StandardCode sc) {
-		return standardCodeDao.queryStandardCodeList(sc);
+	public void initStatements() {
+		this.setStatement(StandardCodeDao.class.getName());
 	}
-
-	/* (non-Javadoc)
-	 * @see com.zoc.service.security.StandardCodeService#addStandardCode(com.zoc.entity.security.StandardCode)
-	 */
-	@Override
-	public void addStandardCode(StandardCode sc) {
-		standardCodeDao.insertStandardCode(sc);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.zoc.service.security.StandardCodeService#modifyStandardCode(com.zoc.entity.security.StandardCode)
-	 */
-	@Override
-	public void modifyStandardCode(StandardCode sc) {
-		standardCodeDao.updateStandardCode(sc);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.zoc.service.security.StandardCodeService#removeStandardCode(com.zoc.entity.security.StandardCode)
-	 */
-	@Override
-	public void removeStandardCode(StandardCode sc) {
-		standardCodeDao.deleteStandardCode(sc);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.zoc.service.security.StandardCodeService#queryStandardCodeListByPage(com.zoc.entity.security.StandardCode, com.zoc.common.page.SuperPage)
-	 */
-	@Override
-	public SuperPage<StandardCode> queryStandardCodeListByPage(StandardCode sc, SuperPage<StandardCode> page) {
-		page.setData(standardCodeDao.queryStandardCodeListByPage(null, new RowBounds(page.getPageOffset(),page.getPageSize())));
-		page.setTotal(100);
-		return page;
-	}
-	
-	
-	
 
 }

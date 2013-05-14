@@ -20,7 +20,7 @@
 
 	</div>
 	<div id="datagrid1" class="mini-datagrid" style="width: 700px; height: 280px;"  fitColumns="false"
-	allowResize="true" sizeList="[20,30,50,100]" pageSize="20" pageIndex="1" url="<%=basePath%>/standardcode/list">
+	allowResize="true" sizeList="[20,30,50,100]" pageSize="20" pageIndex="1" url="<%=basePath%>/standardcode/listByPage">
 		<div property="columns">
 			<div type="indexcolumn"></div> 
 			<div field="code_name" width="100" headerAlign="center" allowSort="true">类别</div>

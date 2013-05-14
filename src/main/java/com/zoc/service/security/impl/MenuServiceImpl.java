@@ -12,7 +12,6 @@ import org.springside.modules.utils.Encodes;
 
 import com.zoc.common.SuperUtils;
 import com.zoc.common.service.impl.SuperServiceImpl;
-import com.zoc.entity.act.In_2_2_1;
 import com.zoc.entity.security.Menu;
 import com.zoc.entity.security.Permission;
 import com.zoc.entity.security.User;
@@ -27,9 +26,6 @@ public class MenuServiceImpl extends SuperServiceImpl<Menu, Long> implements Men
 
 	@Autowired
 	MenuDao menuDao;
-	
-	@Autowired
-	PermissionDao permissionDao;
 
 	@Override
 	public void initStatements() {
@@ -43,7 +39,7 @@ public class MenuServiceImpl extends SuperServiceImpl<Menu, Long> implements Men
 	@Override
 	@Transactional
 	public void removeIncludeChildren(Menu menu) {
-		menuDao.delete(menu);
+		this.remove(menu);
 		List<Menu> menus = menuDao.listChildren(menu);
 		for (Menu m : menus){
 			this.removeIncludeChildren(m);
@@ -62,8 +58,26 @@ public class MenuServiceImpl extends SuperServiceImpl<Menu, Long> implements Men
 	public void add(Menu menu) {
 		menuDao.insert(menu);
 		for(Permission permission : menu.getPermissions()){
-			permissionDao.insert(permission);
+			menuDao.insertMenuPermission(menu.getMenu_id(), permission.getPermission());
 		}
+	}
+	
+	@Override
+	@Transactional
+	public void modify(Menu menu){
+		menuDao.update(menu);
+		//delete all then insert
+		menuDao.deleteMenuPermission(menu.getMenu_id());
+		for(Permission permission : menu.getPermissions()){
+			menuDao.insertMenuPermission(menu.getMenu_id(), permission.getPermission());
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void remove(Menu menu){
+		menuDao.delete(menu);
+		menuDao.deleteMenuPermission(menu.getMenu_id());
 	}
 	
 	

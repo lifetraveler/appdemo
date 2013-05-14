@@ -3,13 +3,17 @@ package com.zoc.common.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.zoc.common.page.SuperPage;
 import com.zoc.common.repository.SuperDao;
 import com.zoc.common.service.SuperService;
-import com.zoc.entity.act.In_1_1;
 
+@Transactional(readOnly = true)
 public abstract class SuperServiceImpl<T, ID extends Serializable> {
 
 	@Autowired
@@ -42,6 +46,14 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 		return sqlSession.selectList(statement + ".list", t);
 	}
 
+	@SuppressWarnings("unchecked")
+	public SuperPage<T> listByPage(T t, SuperPage<T> page) {
+		page.setData((List<T>) sqlSession.selectList(statement + ".listByPage", t, new RowBounds(page.getPageOffset(),
+				page.getPageSize())));
+		page.setTotal(count(t));
+		return page;
+	}
+
 	public T fetchByName(String name) {
 		return sqlSession.selectOne(statement + ".fetchByName", name);
 	}
@@ -50,21 +62,25 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 		return sqlSession.selectOne(statement + ".count", t);
 	}
 
+	@Transactional
 	public void add(T t) {
 		sqlSession.insert(statement + ".insert", t);
 
 	}
 
+	@Transactional
 	public void modify(T t) {
 		sqlSession.update(statement + ".update", t);
 
 	}
 
+	@Transactional
 	public void remove(T t) {
 		sqlSession.delete(statement + ".delete", t);
 
 	}
 
+	@Transactional
 	public void save(T t, String state) {
 		if (state.equals("added")) // 新增：id为空，或_state为added
 		{
@@ -75,6 +91,16 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 		{
 			modify(t);
 		}
+	}
+
+	@Transactional
+	public void upload(List<T> lists, T entity) {
+		// delete and insert
+		this.remove(entity);
+		for (T t : lists) {
+			this.add(t);
+		}
+
 	}
 
 }

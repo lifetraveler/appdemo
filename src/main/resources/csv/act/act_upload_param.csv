@@ -1,0 +1,2 @@
+menu_id,template_path,work_book,sheet_name,row_start,row_end,col_start,col_end,row_year,col_year
+CNSZRRSZ,templates/in/,Input-List.xls,CNSZRRSZ,7,57,0,7,0,0

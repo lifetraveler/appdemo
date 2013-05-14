@@ -53,55 +53,73 @@ permission varchar(100)
 );
 
 
+drop table if exists act_upload_param;
 
-
-drop table if exists in_1_1;
-drop table if exists in_2_2_1;
-drop table if exists out_1_1;
-CREATE TABLE in_1_1(
-c1 INT,
-c2 NUMERIC(20,2),
-c3 VARCHAR(20),
-c4 VARCHAR(20),
-c5 VARCHAR(20),
-c6 VARCHAR(20),
-c7 VARCHAR(20),
-c8 VARCHAR(20),
-c9 VARCHAR(20),
-c10 VARCHAR(20),
-c11 VARCHAR(20),
-c12 VARCHAR(20),
-c13 VARCHAR(20),
-c14 VARCHAR(20),
-c15 VARCHAR(20)
+create table act_upload_param(
+menu_id	varchar(50),
+template_path varchar(100),
+work_book varchar(100),
+sheet_name	varchar(100),
+row_start int,
+row_end int,
+col_start int,
+col_end int,
+row_year int,
+col_year int,
+primary key(menu_id)
 );
 
-CREATE TABLE in_2_2_1(
-c0 INT,
+
+
+drop table if exists ACT_CNSZRRSZ;
+
+CREATE TABLE ACT_CNSZRRSZ(
 c1 VARCHAR(50),
-c2 NUMERIC(20,2),
-c3 NUMERIC(20,2),
-c4 NUMERIC(20,2),
-c5 NUMERIC(20,2),
-c6 NUMERIC(20,2),
-c7 NUMERIC(20,2),
-c8 NUMERIC(20,2),
-loc_id VARCHAR(20),
-year VARCHAR(4)
+c2 INT,
+c3 INT,
+c4 INT,
+c5 INT,
+c6 INT,
+c7 INT,
+c8 INT,
+location VARCHAR(20),
+year	INT,
+c0	INT,
+primary key(c1,location,year)
 );
 
-CREATE TABLE out_1_1(
-c1 INT,
-c2 NUMERIC(20,2),
-c3 NUMERIC(20,2),
-c4 NUMERIC(20,2),
-c5 NUMERIC(20,2),
-c6 NUMERIC(20,2),
-c7 NUMERIC(20,2),
-c8 NUMERIC(20,2),
-c9 NUMERIC(20,2),
-c10 NUMERIC(20,2),
-loc_id VARCHAR(20)
+drop table if exists ACT_CNSZRRSX;
+
+CREATE TABLE ACT_CNSZRRSX(
+c1 VARCHAR(50),
+c2 INT,
+c3 INT,
+c4 INT,
+c5 INT,
+c6 INT,
+c7 INT,
+c8 INT,
+location VARCHAR(20),
+year	INT,
+c0	INT,
+primary key(c1,location,year)
+);
+
+drop table if exists ACT_CNSZRXCB;
+
+CREATE TABLE ACT_CNSZRXCB(
+c1 VARCHAR(50),
+c2 INT,
+c3 INT,
+c4 INT,
+c5 INT,
+c6 INT,
+c7 INT,
+c8 INT,
+location VARCHAR(20),
+year	INT,
+c0	INT,
+primary key(c1,location,year)
 );
 
 

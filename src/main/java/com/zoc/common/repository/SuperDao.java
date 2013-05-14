@@ -10,6 +10,10 @@ package com.zoc.common.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
+
+import com.zoc.entity.security.StandardCode;
+
 /**
  * @author Administrator
  * 
@@ -17,13 +21,14 @@ import java.util.List;
 public interface SuperDao<T> {
 
 	List<T> list(T t);
+	
+	List<T> listByPage(T t, RowBounds pageBounds);
 
 	void insert(T t);
 
 	void update(T t);
 
 	void modify(T t);
-	
-	void delete(T t);
 
+	void delete(T t);
 }

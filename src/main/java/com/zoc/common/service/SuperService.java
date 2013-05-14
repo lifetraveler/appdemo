@@ -11,6 +11,8 @@ package com.zoc.common.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.zoc.common.page.SuperPage;
+
 /**
  * @author Administrator
  *
@@ -18,6 +20,8 @@ import java.util.List;
 public interface SuperService<T, ID extends Serializable> {
 	
 	public List<T> list(T t);
+	
+	public SuperPage<T> listByPage(T t,SuperPage<T> page);
 	
 	public int count(T t);
 	
@@ -29,5 +33,6 @@ public interface SuperService<T, ID extends Serializable> {
 	
 	public void save(T t, String state);
 	
+	public void upload(List<T> lists, T entity);
 
 }

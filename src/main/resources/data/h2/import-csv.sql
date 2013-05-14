@@ -4,8 +4,13 @@ insert into sm_role select * from csvread('classpath:/csv/sm_role.csv',null,'cha
 insert into sm_standard_code select * from csvread('classpath:/csv/sm_standard_code.csv',null,'charset=GBK');
 insert into sm_menu_permission select * from csvread('classpath:/csv/sm_menu_permission.csv',null,'charset=GBK');
 
-insert into in_1_1 select * from csvread('classpath:/csv/in_1_1.csv',null,'charset=GBK');
-insert into in_2_2_1 select * from csvread('classpath:/csv/in_2_2_1.csv',null,'charset=GBK');
+/**
+ * act module
+ */
+insert into ACT_CNSZRRSZ select * from csvread('classpath:/csv/act/act_cnszrrsz.csv',null,'charset=GBK');
+insert into ACT_CNSZRRSX select * from csvread('classpath:/csv/act/act_cnszrrsx.csv',null,'charset=GBK');
+insert into ACT_CNSZRXCB select * from csvread('classpath:/csv/act/act_cnszrxcb.csv',null,'charset=GBK');
 
-insert into out_1_1 select * from csvread('classpath:/csv/out_1_1.csv',null,'charset=GBK');
+insert into act_upload_param select * from csvread('classpath:/csv/act/act_upload_param.csv',null,'charset=GBK');
+
 commit;
