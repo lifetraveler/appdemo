@@ -7,6 +7,11 @@ insert into sm_menu_permission select * from csvread('classpath:/csv/sm_menu_per
 /**
  * act module
  */
+
+insert into ACT_CWSJHGJJ select * from csvread('classpath:/csv/act/act_cwsjhgjj.csv',null,'charset=GBK');
+insert into ACT_CWSJRKSJ select * from csvread('classpath:/csv/act/act_cwsjrksj.csv',null,'charset=GBK');
+
+
 insert into ACT_CNSZRRSZ select * from csvread('classpath:/csv/act/act_cnszrrsz.csv',null,'charset=GBK');
 insert into ACT_CNSZRRSX select * from csvread('classpath:/csv/act/act_cnszrrsx.csv',null,'charset=GBK');
 insert into ACT_CNSZRXCB select * from csvread('classpath:/csv/act/act_cnszrxcb.csv',null,'charset=GBK');

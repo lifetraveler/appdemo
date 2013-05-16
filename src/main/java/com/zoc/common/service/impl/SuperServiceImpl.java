@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.zoc.common.entity.AjaxEntity;
 import com.zoc.common.page.SuperPage;
 import com.zoc.common.repository.SuperDao;
 import com.zoc.common.service.SuperService;
+import com.zoc.entity.act.CNSZJJSQ;
 
 @Transactional(readOnly = true)
-public abstract class SuperServiceImpl<T, ID extends Serializable> {
+public abstract class SuperServiceImpl<T extends AjaxEntity, ID extends Serializable> {
 
 	@Autowired
 	public SqlSession sqlSession;
@@ -48,7 +50,7 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 
 	@SuppressWarnings("unchecked")
 	public SuperPage<T> listByPage(T t, SuperPage<T> page) {
-		page.setData((List<T>) sqlSession.selectList(statement + ".listByPage", t, new RowBounds(page.getPageOffset(),
+		page.setData((List) sqlSession.selectList(statement + ".listByPage", t, new RowBounds(page.getPageOffset(),
 				page.getPageSize())));
 		page.setTotal(count(t));
 		return page;
@@ -79,6 +81,14 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 		sqlSession.delete(statement + ".delete", t);
 
 	}
+	
+	@Transactional
+	public void batchSave(List<T> data) {
+		for(T t : data){
+			save(t,t.getState());
+		}
+		
+	}
 
 	@Transactional
 	public void save(T t, String state) {
@@ -94,13 +104,11 @@ public abstract class SuperServiceImpl<T, ID extends Serializable> {
 	}
 
 	@Transactional
-	public void upload(List<T> lists, T entity) {
-		// delete and insert
-		this.remove(entity);
+	public void upload(List<T> lists) {
 		for (T t : lists) {
+			this.remove(t);
 			this.add(t);
 		}
-
 	}
 
 }

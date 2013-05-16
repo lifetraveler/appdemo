@@ -79,20 +79,25 @@ body {
 		var tree = mini.get("leftTree");
 		
 		function showTab(node) {
-		          var tabs = mini.get("mainTabs");
-		
-		          var id = "tab$" + node.menu_id;
-		          var tab = tabs.getTab(id);
-		          if (!tab) {
-		              tab = {};
-		              tab.name = id;
-		              tab.title = node.menu_desc;
-		              tab.showCloseButton = true;
-		              tab.url = '<%=basePath%>' + node.menu_url;
-		              tabs.addTab(tab);
-		          }
-		          tabs.activeTab(tab);
-		      }
+			
+			if(node.menu_url == null){
+				node.menu_url = '/nopage';
+			}
+			
+	        var tabs = mini.get("mainTabs");
+	
+	        var id = "tab$" + node.menu_id;
+	        var tab = tabs.getTab(id);
+	        if (!tab) {
+	            tab = {};
+	            tab.name = id;
+	            tab.title = node.menu_desc;
+	            tab.showCloseButton = true;
+	            tab.url = '<%=basePath%>' + node.menu_url;
+	            tabs.addTab(tab);
+	        }
+	        tabs.activeTab(tab);
+      	}
 		
 		      function onNodeSelect(e) {
 		      

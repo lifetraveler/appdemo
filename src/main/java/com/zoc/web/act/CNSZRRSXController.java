@@ -130,12 +130,8 @@ public class CNSZRRSXController {
 							entity.setC0(i + 1);
 						}
 					}
-					// 生成查询bean
-					CNSZRRSX entity = new CNSZRRSX();
-					entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-					entity.setYear(in.getDataYear(file.getInputStream(), 4, 6));
 					//service统一控制事务
-					CNSZRRSXService.upload(lists, entity);
+					CNSZRRSXService.upload(lists);
 
 				}
 			}

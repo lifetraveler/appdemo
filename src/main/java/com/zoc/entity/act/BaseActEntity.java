@@ -15,6 +15,8 @@ public class BaseActEntity extends AjaxEntity {
 	
 	public Integer c0;
 	
+	public String c1;
+	
 
 	public Integer getYear() {
 		return year;
@@ -39,6 +41,17 @@ public class BaseActEntity extends AjaxEntity {
 	public void setC0(Integer c0) {
 		this.c0 = c0;
 	}
+
+	public String getC1() {
+		return c1;
+	}
+
+	public void setC1(String c1) {
+		this.c1 = c1;
+	}
+	
+	
+	
 
 	
 

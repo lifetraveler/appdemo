@@ -9,12 +9,13 @@
 package com.zoc.entity.security;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.common.entity.AjaxEntity;
 
 /**
  * @author Administrator
  *
  */
-public class StandardCode {
+public class StandardCode extends AjaxEntity {
 	
 	String code_name;
 	

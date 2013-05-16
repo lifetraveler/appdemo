@@ -49,4 +49,9 @@ public class MainController {
 		return permissions;
 	}
 
+	@RequestMapping(value = "/YQNRKYCQ", method = { RequestMethod.GET })
+	public String sss() {
+		return "/act/YQNRKYCQ";
+	}
+
 }

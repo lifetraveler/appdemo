@@ -27,6 +27,8 @@ public class UploadParam extends AjaxEntity{
 	int row_year;
 	
 	int col_year;
+	
+	String row_check;
 
 	public String getMenu_id() {
 		return menu_id;
@@ -107,6 +109,15 @@ public class UploadParam extends AjaxEntity{
 	public void setCol_year(int col_year) {
 		this.col_year = col_year;
 	}
+
+	public String getRow_check() {
+		return row_check;
+	}
+
+	public void setRow_check(String row_check) {
+		this.row_check = row_check;
+	}
+	
 	
 	
 	

@@ -8,11 +8,13 @@
 */
 package com.zoc.entity.security;
 
+import com.zoc.common.entity.AjaxEntity;
+
 /**
  * @author Administrator
  *
  */
-public class Permission {
+public class Permission extends AjaxEntity{
 	
 	String permission;
 	

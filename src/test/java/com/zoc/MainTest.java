@@ -25,8 +25,10 @@ import org.nutz.lang.Files;
 
 import com.alibaba.fastjson.JSON;
 import com.zoc.common.poi.ImportExcel;
+import com.zoc.entity.act.CNSZJJSQ;
 import com.zoc.entity.act.CNSZRRSZ;
 import com.zoc.entity.security.Menu;
+import com.zoc.repository.act.CNSZJJSQDao;
 
 /**
  * @author Administrator
@@ -38,47 +40,9 @@ public class MainTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		InputStream in = Files.findFileAsStream("d:/Input-List.xls");
-		ImportExcel<CNSZRRSZ> ie = new ImportExcel<CNSZRRSZ>(CNSZRRSZ.class);
-		List<CNSZRRSZ> datas = new ArrayList<CNSZRRSZ>();
-		List<String> tempdatas = new ArrayList<String>();
-		try {
-			/* get excel template */
-			InputStream template = Files.findFileAsStream("templates/in/Input-List.xls");
-			HSSFWorkbook workbook;
-			workbook = new HSSFWorkbook(template);
-			HSSFSheet sheet = workbook.getSheet("CNSZRRSZ");
-
-			int rowLength = 57 - 7 + 1;
-
-			Iterator<Row> rows = sheet.rowIterator();
-
-			while (rows.hasNext()) {
-				Row row = rows.next();
-				if (row.getRowNum() < 7) {
-					continue;
-				}
-				tempdatas.add(row.getCell(0).getStringCellValue());
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (datas.size() != tempdatas.size()) {
-			System.out.println("行不对");
-		}
-		try {
-			for (int i = 0; i < datas.size(); i++) {
-				if (!StringUtils.equals(datas.get(i).getC1(), tempdatas.get(i))) {
-					System.out.println("名字不对");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("都对");
+		
+		Class<CNSZJJSQ> classzz = null;
+		System.out.println(classzz.getSimpleName());
 	}
 
 }

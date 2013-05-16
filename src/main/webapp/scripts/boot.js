@@ -61,7 +61,7 @@ function getCookie(sName) {
 var alertFun = window.alert;
 window.alert = function (str) {
     try {
-        if (str.indexOf("http://www.miniui.com") == -1) {
+        if (str.indexOf("www.miniui.com") == -1) {
             alertFun(str);
         }
     } catch (Exception) {

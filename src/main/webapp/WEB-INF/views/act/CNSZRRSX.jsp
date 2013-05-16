@@ -23,10 +23,10 @@
                         <span class="separator"></span>
                         <a class="mini-button" iconCls="icon-save" onclick="saveData()" plain="true">保存</a> 
                         <span class="separator"></span>
-                        <input id="fileupload1" class="mini-fileupload" name="Fdata" limitType="*.xls" flashUrl="<%=swfPath %>" uploadUrl="<%=basePath %>/CNSZRRSZ/upload" 
+                        <input id="fileupload1" class="mini-fileupload" name="Fdata" limitType="*.xls" flashUrl="<%=swfPath %>" uploadUrl="<%=basePath %>/CNSZRRSX/upload" 
                         	onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect" />
                         <a class="mini-button" iconCls="icon-upload" onclick="startUpload()" plain="true">EXCEL上传</a>
-                        <a class="mini-button" iconCls="icon-download" href="<%=basePath %>/CNSZRRSZ/download" plain="true">EXCEL导出</a>
+                        <a class="mini-button" iconCls="icon-download" href="<%=basePath %>/CNSZRRSX/download" plain="true">EXCEL导出</a>
                     </td>
                 </tr>
             </table>           
@@ -137,7 +137,7 @@
             
             grid.loading("保存中，请稍后......");
             $.ajax({
-                url: "<%=basePath%>/CNSZRRSZ/save",
+                url: "<%=basePath%>/CNSZRRSX/save",
                 data: { data: json },
                 type: "post",
                 success: function (text) {

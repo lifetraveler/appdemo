@@ -11,13 +11,17 @@ package com.zoc.common.service;
 import java.io.Serializable;
 import java.util.List;
 
+import com.zoc.common.entity.AjaxEntity;
 import com.zoc.common.page.SuperPage;
 
 /**
  * @author Administrator
  *
  */
-public interface SuperService<T, ID extends Serializable> {
+public interface SuperService<T extends AjaxEntity, ID extends Serializable> {
+	
+	
+	public void initStatements();
 	
 	public List<T> list(T t);
 	
@@ -31,8 +35,10 @@ public interface SuperService<T, ID extends Serializable> {
 	
 	public void remove(T t);
 	
+	public void batchSave(List<T> data);
+	
 	public void save(T t, String state);
 	
-	public void upload(List<T> lists, T entity);
+	public void upload(List<T> lists);
 
 }

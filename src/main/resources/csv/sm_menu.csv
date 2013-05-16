@@ -7,8 +7,13 @@ standardcode,标准代码,right,4,/standardcode
 database,数据库,right,5,/h2
 extractData,采集数据,,1,
 outerData,外部数据,extractData,1,
+CWSJHGJJ,宏观经济,outerData,1,/CWSJHGJJ
+CWSJRKSJ,人口数据,outerData,2,/CWSJRKSJ
+CWSJLDJY,劳动就业,outerData,3,/CWSJLDJY
+CWSJSRGZ,收入和工资,outerData,4,/CWSJSRGZ
 innerData,内部数据,extractData,2,
 yearData,年报数据,innerData,1,
+yanglaojijin,养老基金,yearData,1,
 productData,生产数据,innerData,2,
 onJobPart,在职部分,productData,1,
 onJobPeople,人数情况,onJobPart,1,
@@ -68,3 +73,7 @@ YZJFJFNX,缴费年限,inBasicData,7,/YZJFJFNX
 YZGRGRZH,个人账户,inBasicData,8,/YZGRGRZH
 YZTXTXYL,退休人员养老金,inBasicData,9,/YZTXTXYL
 YZYTYTRY,一次性退休人员,inBasicData,10,/YZYTYTRY
+actModel,精算模型,,3,
+report,精算报告,,4,
+ylbx,养老保险,report,1,
+YQNRKYCQ,预期内人口预测情况,ylbx,1,/YQNRKYCQ

@@ -3,11 +3,13 @@ package com.zoc.common.page;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zoc.common.entity.AjaxEntity;
+
 /**
  * @author Administrator 分页的模版类
  * 
  */
-public class SuperPage<T> {
+public class SuperPage<T extends AjaxEntity> {
 
 	// 从哪一条开始
 	private Integer pageOffset;
@@ -106,8 +108,5 @@ public class SuperPage<T> {
 		this.data = data;
 	}
 
-	public void setObject(List<Object> data) {
-		this.data = (List<T>) data;
-	}
 
 }

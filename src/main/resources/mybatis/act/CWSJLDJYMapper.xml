@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.CWSJLDJYDao">
+
+	<select id="list" resultType="CWSJLDJY" parameterType="CWSJLDJY">
+		select year,
+		sum(nvl(c2,0)) c2,
+		sum(nvl(c3,0)) c3,
+		sum(nvl(c4,0)) c4,
+		sum(nvl(c5,0)) c5,
+		sum(nvl(c6,0)) c6,
+		sum(nvl(c7,0)) c7,
+		sum(nvl(c8,0))
+		c8,
+		sum(nvl(c9,0)) c9,
+		sum(nvl(c10,0)) c10,
+		sum(nvl(c11,0)) c11,
+		sum(nvl(c12,0)) c12,
+		sum(nvl(c13,0)) c13,
+		sum(nvl(c14,0)) c14,
+		sum(nvl(c15,0)) c15,
+		sum(nvl(c16,0)) c16
+		from ACT_CWSJLDJY
+		<where>
+			<if test="location != '100000'">
+				location = #{location}
+			</if>
+		</where>
+		group by year
+		order by year
+	</select>
+
+	<insert id="insert" parameterType="CWSJLDJY">
+		insert into ACT_CWSJLDJY
+		values
+		(#{year},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{c9},#{c10},#{c11},#{c12},#{c13},#{c14},#{c15},#{16},#{location})
+	</insert>
+
+	<update id="update" parameterType="CWSJLDJY">
+		update ACT_CWSJLDJY set
+		c2 =
+		#{c2},c3 = #{c3},c4 = #{c4},c5 = #{c5},c6 = #{c6},c7 = #{c7},c8 =
+		#{c8},c9 = #{c9},c10 = #{c10},c11 = #{c11},c12 =
+		#{c12},c13=#{c13},c14
+		= #{c14},c15 = #{c15},c16 = #{c16}
+		where year = #{year}
+		and
+		location =
+		#{location}
+	</update>
+
+	<delete id="delete" parameterType="CWSJLDJY">
+		delete from ACT_CWSJLDJY
+		<where>
+			<if test="year != null">
+				year = #{year}
+			</if>
+			<if test="location != null">
+				and location = #{location}
+			</if>
+		</where>
+	</delete>
+</mapper> 

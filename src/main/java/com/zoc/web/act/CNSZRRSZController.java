@@ -130,12 +130,9 @@ public class CNSZRRSZController {
 							entity.setC0(i + 1);
 						}
 					}
-					// 生成查询bean
-					CNSZRRSZ entity = new CNSZRRSZ();
-					entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-					entity.setYear(in.getDataYear(file.getInputStream(), 4, 6));
+				
 					//service统一控制事务
-					cnszrrszService.upload(lists, entity);
+					cnszrrszService.upload(lists);
 
 				}
 			}
@@ -149,7 +146,7 @@ public class CNSZRRSZController {
 
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
-	void download(HttpServletResponse response) {
+	void download(HttpServletResponse response,CNSZRRSZ entity) {
 		OutputStream os;
 		try {
 			os = response.getOutputStream();
@@ -157,7 +154,6 @@ public class CNSZRRSZController {
 			response.setHeader("Content-disposition", "attachment; filename=Output.xls");
 			response.setContentType("application/msexcel");
 
-			CNSZRRSZ entity = new CNSZRRSZ();
 			user = SuperUtils.getSubjectUser();
 			entity.setLocation(user.getLocation());
 

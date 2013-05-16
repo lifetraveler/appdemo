@@ -52,6 +52,10 @@ menu_id varchar(20),
 permission varchar(100)
 );
 
+/**
+ * Act Moudle
+ */
+
 
 drop table if exists act_upload_param;
 
@@ -66,10 +70,103 @@ col_start int,
 col_end int,
 row_year int,
 col_year int,
+row_check char(1),
 primary key(menu_id)
 );
 
 
+drop table if exists ACT_CWSJHGJJ;
+
+CREATE TABLE ACT_CWSJHGJJ(
+year INT,
+c2 DECIMAL(20,2),
+c3 DECIMAL(20,2),
+c4 DECIMAL(20,2),
+c5 DECIMAL(20,2),
+c6 DECIMAL(20,2),
+c7 DECIMAL(20,2),
+c8 DECIMAL(20,2),
+c9 DECIMAL(20,2),
+c10 DECIMAL(20,2),
+c11 DECIMAL(20,2),
+c12 DECIMAL(20,2),
+c13 DECIMAL(20,2),
+c14 DECIMAL(20,2),
+c15 DECIMAL(20,2),
+location VARCHAR(20),
+primary key(year,location)
+);
+
+
+drop table if exists ACT_CWSJRKSJ;
+
+CREATE TABLE ACT_CWSJRKSJ(
+year INT,
+c2 INT,
+c3 INT,
+c4 INT,
+c5 INT,
+c6 INT,
+c7 INT,
+c8 INT,
+c9 INT,
+c10 INT,
+c11 INT,
+c12 DECIMAL(20,2),
+c13 DECIMAL(20,2),
+c14 DECIMAL(20,2),
+location VARCHAR(20),
+primary key(year,location)
+);
+
+
+drop table if exists ACT_CWSJLDJY;
+
+CREATE TABLE ACT_CWSJLDJY(
+year INT,
+c2 INT,
+c3 DECIMAL(20,2),
+c4 INT,
+c5 INT,
+c6 INT,
+c7 INT,
+c8 INT,
+c9 INT,
+c10 INT,
+c11 INT,
+c12 INT,
+c13 INT,
+c14 INT,
+c15 INT,
+c16 INT,
+location VARCHAR(20),
+primary key(year,location)
+);
+
+
+drop table if exists ACT_CWSJSRGZ;
+
+CREATE TABLE ACT_CWSJSRGZ(
+year INT,
+c2 DECIMAL(20,2),
+c3 DECIMAL(20,2),
+c4 DECIMAL(20,2),
+c5 DECIMAL(20,2),
+c6 DECIMAL(20,2),
+c7 DECIMAL(20,2),
+c8 DECIMAL(20,2),
+c9 DECIMAL(20,2),
+c10 DECIMAL(20,2),
+c11 DECIMAL(20,2),
+c12 DECIMAL(20,2),
+c13 DECIMAL(20,2),
+c14 DECIMAL(20,2),
+c15 DECIMAL(20,2),
+c16 DECIMAL(20,2),
+c17 DECIMAL(20,2),
+location VARCHAR(20),
+primary key(year,location)
+);
 
 drop table if exists ACT_CNSZRRSZ;
 
@@ -116,6 +213,57 @@ c5 INT,
 c6 INT,
 c7 INT,
 c8 INT,
+location VARCHAR(20),
+year	INT,
+c0	INT,
+primary key(c1,location,year)
+);
+
+drop table if exists ACT_CNSZJJSQ;
+
+CREATE TABLE ACT_CNSZJJSQ(
+c1 VARCHAR(50),
+c2 DECIMAL(20,2),
+c3 DECIMAL(20,2),
+c4 DECIMAL(20,2),
+c5 DECIMAL(20,2),
+c6 DECIMAL(20,2),
+c7 DECIMAL(20,2),
+c8 DECIMAL(20,2),
+location VARCHAR(20),
+year	INT,
+c0	INT,
+primary key(c1,location,year)
+);
+
+drop table if exists ACT_CNSZJZSZ;
+
+CREATE TABLE ACT_CNSZJZSZ(
+c1 VARCHAR(50),
+c2 DECIMAL(20,2),
+c3 DECIMAL(20,2),
+c4 DECIMAL(20,2),
+c5 DECIMAL(20,2),
+c6 DECIMAL(20,2),
+c7 DECIMAL(20,2),
+c8 DECIMAL(20,2),
+location VARCHAR(20),
+year	INT,
+c0	INT,
+primary key(c1,location,year)
+);
+
+drop table if exists ACT_CNSZJZSX;
+
+CREATE TABLE ACT_CNSZJZSX(
+c1 VARCHAR(50),
+c2 DECIMAL(20,2),
+c3 DECIMAL(20,2),
+c4 DECIMAL(20,2),
+c5 DECIMAL(20,2),
+c6 DECIMAL(20,2),
+c7 DECIMAL(20,2),
+c8 DECIMAL(20,2),
 location VARCHAR(20),
 year	INT,
 c0	INT,

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.CNSZJJSQDao">
+	
+	<select id="list" resultType="CNSZJJSQ" parameterType="CNSZJJSQ">
+		 select c1,year,
+			avg(nvl(c2,0)) c2,
+			avg(nvl(c3,0)) c3,
+			avg(nvl(c4,0)) c4,
+			avg(nvl(c5,0)) c5,
+			avg(nvl(c6,0)) c6,
+			avg(nvl(c7,0)) c7,
+			avg(nvl(c8,0)) c8
+		 from ACT_CNSZJJSQ
+		<where>
+			<if test="location != '100000'">
+				location = #{location}
+			</if>
+		</where>
+		group by c1,year
+		order by c0
+	</select>
+	
+	<insert id="insert" parameterType="CNSZJJSQ">
+		insert into ACT_CNSZJJSQ values
+		(#{c1},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{location},#{year},#{c0})
+	</insert>
+	
+	<update id="update" parameterType="CNSZJJSQ">
+		update ACT_CNSZJJSQ set
+		c2 = #{c2},c3 = #{c3},c4 = #{c4},c5 = #{c5},c6 = #{c6},c7 = #{c7},c8 = #{c8}
+		where c1 = #{c1} and location = #{location} and year = #{year}
+	</update>
+	  
+	<delete id="delete" parameterType="CNSZJJSQ">
+		delete from ACT_CNSZJJSQ 
+		<where>
+			<if test="c1 != null">
+				c1 = #{c1}
+			</if>
+			<if test="location != null">
+				and location = #{location}
+			</if>
+			<if test="year != null">
+				and year = #{year}
+			</if>
+		</where>
+	</delete>
+	
+</mapper> 

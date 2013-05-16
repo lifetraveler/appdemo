@@ -1,2 +1,9 @@
-menu_id,template_path,work_book,sheet_name,row_start,row_end,col_start,col_end,row_year,col_year
-CNSZRRSZ,templates/in/,Input-List.xls,CNSZRRSZ,7,57,0,7,0,0
+menu_id,template_path,work_book,sheet_name,row_start,row_end,col_start,col_end,row_year,col_year,row_check
+CNSZRRSZ,templates/in/,Input-List.xls,CNSZRRSZ,7,57,0,7,0,0,C
+CNSZJJSQ,templates/in/,Input-List.xls,CNSZJJSQ,7,57,0,7,0,0,C
+CNSZJZSX,templates/in/,Input-List.xls,CNSZJZSX,7,57,0,7,0,0,C
+CNSZJZSZ,templates/in/,Input-List.xls,CNSZJZSZ,7,57,0,7,0,0,C
+CNSZRRSX,templates/in/,Input-List.xls,CNSZRRSX,7,57,0,7,0,0,C
+CNSZRXCB,templates/in/,Input-List.xls,CNSZRXCB,7,57,0,7,0,0,C
+CWSJHGJJ,templates/in/,Input-List.xls,CWSJHGJJ,5,,0,14,0,0,U
+CWSJRKSJ,templates/in/,Input-List.xls,CWSJRKSJ,5,,0,13,0,0,U
