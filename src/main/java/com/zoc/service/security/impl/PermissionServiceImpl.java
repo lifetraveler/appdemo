@@ -8,6 +8,8 @@
 */
 package com.zoc.service.security.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -26,7 +28,8 @@ import com.zoc.common.service.impl.SuperServiceImpl;
  */
 public class PermissionServiceImpl extends SuperServiceImpl<Permission,Long> implements PermissionService {
 	
-	
+	@Autowired
+	PermissionDao permissionDao;
 
 	
 	@Override
@@ -40,5 +43,12 @@ public class PermissionServiceImpl extends SuperServiceImpl<Permission,Long> imp
 		this.setStatement(PermissionDao.class.getName());
 		
 	}
+
+	@Override
+	public List<Permission> listPermissionByRoleIdMenuId(String menu_id, String role_id) {
+		return permissionDao.listPermissionByRoleIdMenuId(menu_id, role_id);
+	}
+	
+	
 
 }

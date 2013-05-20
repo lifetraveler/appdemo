@@ -41,7 +41,7 @@ public class UploadParamServiceImpl extends SuperServiceImpl<UploadParam, Long> 
 	@Override
 	public void batchSave(List<UploadParam> data) {
 		for(UploadParam entity : data){
-			this.save(entity, entity.getState());
+			this.save(entity);
 		}
 	}
 

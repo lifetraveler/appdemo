@@ -31,8 +31,7 @@ public class MenuServiceImpl extends SuperServiceImpl<Menu, Long> implements Men
 	public void initStatements() {
 		this.setStatement(MenuDao.class.getName());
 	}
-	
-	
+
 	/**
 	 * 因为树有子节点，所以需要重载remove方法
 	 */
@@ -41,47 +40,53 @@ public class MenuServiceImpl extends SuperServiceImpl<Menu, Long> implements Men
 	public void removeIncludeChildren(Menu menu) {
 		this.remove(menu);
 		List<Menu> menus = menuDao.listChildren(menu);
-		for (Menu m : menus){
+		for (Menu m : menus) {
 			this.removeIncludeChildren(m);
 		}
 	}
-
 
 	@Override
 	public Menu fetchByPermission(String menu_id) {
 		return menuDao.fetchByPermission(menu_id);
 	}
 
+	public List<Menu> listByRoleId(String role_id) {
+		return menuDao.listByRoleId(role_id);
+	}
 
 	@Override
 	@Transactional
 	public void add(Menu menu) {
 		menuDao.insert(menu);
-		for(Permission permission : menu.getPermissions()){
+		for (Permission permission : menu.getPermissions()) {
 			menuDao.insertMenuPermission(menu.getMenu_id(), permission.getPermission());
 		}
 	}
-	
+
 	@Override
 	@Transactional
-	public void modify(Menu menu){
+	public void modify(Menu menu) {
 		menuDao.update(menu);
-		//delete all then insert
+		// delete all then insert
 		menuDao.deleteMenuPermission(menu.getMenu_id());
-		for(Permission permission : menu.getPermissions()){
+		for (Permission permission : menu.getPermissions()) {
 			menuDao.insertMenuPermission(menu.getMenu_id(), permission.getPermission());
 		}
 	}
-	
+
 	@Override
 	@Transactional
-	public void remove(Menu menu){
+	public void remove(Menu menu) {
 		menuDao.delete(menu);
 		menuDao.deleteMenuPermission(menu.getMenu_id());
 	}
-	
-	
-	
-	
 
+	/**
+	 * @param menu
+	 * 更新的是在角色选择之后，角色所带的菜单及该角色所选择的权限，不是上面的菜单权限更新
+	 */
+	@Transactional
+	public void modifyWithRolePermission(Menu menu){
+		
+	}
 }

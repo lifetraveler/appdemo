@@ -10,6 +10,7 @@ package com.zoc.repository.security;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.zoc.common.repository.MyBatisRepository;
@@ -24,14 +25,16 @@ import com.zoc.entity.security.User;
  * 
  */
 @MyBatisRepository
-public interface MenuDao extends SuperDao<Menu>{
-	
+public interface MenuDao extends SuperDao<Menu> {
+
 	public List<Menu> listChildren(Menu menu);
-	
-	public Menu fetchByPermission(String menu_id);
-	
-	public void insertMenuPermission(String menu_id,String permission);
-	
+
+	public Menu fetchByPermission(@Param("menu_id") String menu_id);
+
+	public List<Menu> listByRoleId(String role_id);
+
+	public void insertMenuPermission(String menu_id, String permission);
+
 	public void deleteMenuPermission(String menu_id);
 
 }

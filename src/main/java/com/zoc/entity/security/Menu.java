@@ -24,7 +24,11 @@ public class Menu extends AjaxEntity {
 	Integer menu_order;
 	String menu_url;
 	
+	
+	
 	List<Permission> permissions;
+	
+	Boolean checked;
 	
 	
 	public List<Permission> getPermissions() {
@@ -93,6 +97,14 @@ public class Menu extends AjaxEntity {
 	public void setMenu_url(String menu_url) {
 		this.menu_url = menu_url;
 	}
+	public Boolean getChecked() {
+		return checked;
+	}
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+
+	
 	
 	
 

@@ -36,6 +36,8 @@ public class User  extends AjaxEntity implements Serializable{
 	
 	private String location;
 	
+	private String home_branch;
+	
 	
 
 	/**
@@ -135,6 +137,16 @@ public class User  extends AjaxEntity implements Serializable{
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	public String getHome_branch() {
+		return home_branch;
+	}
+
+	public void setHome_branch(String home_branch) {
+		this.home_branch = home_branch;
+	}
+	
+	
 	
 	
 

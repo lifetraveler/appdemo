@@ -7,6 +7,7 @@ create table sm_user (
 	salt varchar(64),
 	status varchar(1),
 	location varchar(10),
+	home_branch varchar(20),
 	primary key (username)
 );
 
@@ -29,6 +30,17 @@ create table sm_menu(
 	primary key(menu_id)
 );
 
+drop table if exists sm_branch;
+
+create table sm_branch(
+	branch_code varchar(20),
+	branch_name varchar(200),
+	parent_branch varchar(20),
+	branch_order INT,
+	primary key(branch_code)
+);
+
+
 drop table if exists sm_permissions;
 
 create table sm_permissions(
@@ -50,6 +62,15 @@ drop table if exists sm_menu_permission;
 create table sm_menu_permission(
 menu_id varchar(20),
 permission varchar(100)
+);
+
+drop table if exists sm_role_menu_permission;
+
+create table sm_role_menu_permission(
+role_id varchar(20),
+menu_id varchar(20),
+permission varchar(100),
+primary key(role_id,menu_id,permission)
 );
 
 /**

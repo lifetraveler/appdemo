@@ -43,6 +43,7 @@
 			<div field="realname" width="120" headerAlign="center" allowSort="true">姓名</div>
 			<div field="status" width="160" headerAlign="center" allowSort="true">状态</div>
 			<div field="location" width="160" headerAlign="center" allowSort="true">所在地</div>
+			<div field="home_branch" width="160" headerAlign="center" allowSort="true">所在机构</div>
 		</div>
 	</div>
 	
@@ -72,6 +73,11 @@
 						url="<%=basePath%>/standardcode/list?code_name=location"  required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."/></td>
 				</tr>
 				<tr>
+					<td style="width: 80px;">所在机构：</td>
+					<td colspan="3"><input name="home_branch" id="home_branch" class="mini-buttonedit" onbuttonclick="lovClick"/></td>
+					<td clospan="2"><a class="mini-button" iconCls="icon-note" onclick="userRole()">用户角色信息</a></td>
+				</tr>
+				<tr>
 					<td
 						style="text-align: right; padding-top: 5px; padding-right: 20px;"
 						colspan="6">
@@ -92,6 +98,10 @@
 	    
 		//////////////////////////////////////////////////////
 		
+		function userRole(){
+			
+		}
+		
 		function add(){
 			var o = {state :'added'};
 			editFormShow(o);
@@ -99,8 +109,8 @@
 		
 		function edit(){
 			var row = grid.getSelected();
-			var o = {state :'modified'};
-			editFormShow(o);
+			row.state = 'modified';
+			editFormShow(row);
 		}
 		
 		function editFormShow(data){
@@ -146,22 +156,28 @@
         function onKeyEnter(e) {
             search();
         }
-        function onFileSelect(e) {
-            //alert("选择文件");
-        }
-        function onUploadSuccess(e) {
+       
+        function lovClick(e){
+        	var lov_field = this;
+        	mini.open({
+        		url: "<%=basePath%>/lov/lov_branch",
+                title: "选择列表",
+                width: 650,
+                height: 380,
+                ondestroy: function (action) {
+                    //if (action == "close") return false;
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);    //必须
+                        if (data) {
+                        	lov_field.setValue(data.branch_code);
+                        	lov_field.setText(data.branch_name);
+                        }
+                    }
 
-            alert("上传成功：" + e.serverData);
-
-            this.setText("");
-        }
-        function onUploadError(e) {
-            
-        }
-
-        function startUpload() {
-            var fileupload = mini.get("fileupload1");
-            fileupload.startUpload();
+                }
+        	});
         }
 	</script>
 </body>

@@ -5,13 +5,15 @@
 <mapper namespace="com.zoc.repository.security.MenuDao">
 
 	<resultMap type="Menu" id="menuResult">
-		<id property="menu_id" column="menu_id"/>
-		<result property="menu_desc" column = "menu_desc"/>
-		<result property="menu_order" column="menu_order"/> 
-		<result property="menu_url" column="menu_url"/>
-		<result property="parent_id" column="parent_id"/>
+		<id property="menu_id" column="menu_id" />
+		<result property="menu_desc" column="menu_desc" />
+		<result property="menu_order" column="menu_order" />
+		<result property="menu_url" column="menu_url" />
+		<result property="parent_id" column="parent_id" />
+		<result property="checked" column="checked" javaType="Boolean"
+			jdbcType="VARCHAR" typeHandler="com.zoc.common.entity.BooleanTypeHandler" />
 		<collection property="permissions" ofType="Permission">
-			<result property="permission" column="permission"/>
+			<result property="permission" column="permission" />
 		</collection>
 	</resultMap>
 
@@ -24,53 +26,68 @@
 		</where>
 		order by menu_order
 	</select>
-	
+
 	<select id="listChildren" parameterType="Menu" resultType="Menu">
 		select * from sm_menu
 		<where>
 			<if test="menu_id != null">
 				parent_id = #{menu_id}
 			</if>
-		</where>	
+		</where>
 		order by menu_order
 	</select>
-	
+
 	<select id="fetchByPermission" parameterType="String" resultMap="menuResult">
-		select * from sm_menu a 
+		select * from sm_menu a
 		left join sm_menu_permission b on a.menu_id = b.menu_id
-		where a.menu_id = #{menu_id}
+		<where>
+			<if test="menu_id != null">
+				a.menu_id = #{menu_id}
+			</if>
+		</where>
 	</select>
-	
-	
-	
+
+	<select id="listByRoleId" parameterType="String" resultMap="menuResult">
+		select a.*,b.role_id as checked,b.permission from sm_menu a
+		left join
+		sm_role_menu_permission b on a.menu_id = b.menu_id and b.role_id =
+		#{role_id}
+	</select>
+
 	<insert id="insert" parameterType="Menu">
 		insert into sm_menu values
 		(#{menu_id},#{menu_desc},#{parent_id},#{menu_order},#{menu_url})
 	</insert>
-	
+
 	<update id="update" parameterType="Menu">
 		update sm_menu
-		set menu_desc = #{menu_desc}, parent_id = #{parent_id}, menu_order = #{menu_order}, menu_url = #{menu_url}
+		set menu_desc =
+		#{menu_desc}, parent_id = #{parent_id}, menu_order = #{menu_order},
+		menu_url = #{menu_url}
 		where menu_id = #{menu_id}
 	</update>
-	
+
 	<delete id="delete" parameterType="Menu">
-		delete from sm_menu where menu_id = #{menu_id}
+		delete from sm_menu where
+		menu_id = #{menu_id}
 	</delete>
-	
+
 	<select id="fetchByName" parameterType="Menu" resultType="Menu">
-		select * from sm_menu where menu_id = #{menu_id}
+		select
+		* from sm_menu where menu_id = #{menu_id}
 	</select>
-	
+
 	<!-- Menu Permission -->
 	<insert id="insertMenuPermission" parameterType="String">
-		insert into sm_menu_permission
+		insert into
+		sm_menu_permission
 		values
 		(#{param1},#{param2})
 	</insert>
-	
+
 	<delete id="deleteMenuPermission" parameterType="String">
-		delete from sm_menu_permission where menu_id = #{menu_id}
+		delete from
+		sm_menu_permission where menu_id = #{menu_id}
 	</delete>
-	
+
 </mapper> 

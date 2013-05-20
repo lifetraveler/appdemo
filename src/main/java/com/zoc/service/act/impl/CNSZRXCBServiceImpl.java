@@ -35,13 +35,7 @@ public class CNSZRXCBServiceImpl extends SuperServiceImpl<CNSZRXCB, Long> implem
 		this.setStatement(CNSZRXCBDao.class.getName());
 	}
 
-	@Override
-	public void batchSave(List<CNSZRXCB> data) {
-		for(CNSZRXCB entity : data){
-			this.save(entity, entity.getState());
-		}
-	}
-	
+
 	
 	
 	

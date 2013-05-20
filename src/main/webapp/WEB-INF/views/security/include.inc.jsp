@@ -13,6 +13,7 @@
 <link href="<%=basePath%>/scripts/super/css/demo.css" rel="stylesheet" type="text/css" />
 <script src="<%=basePath%>/scripts/boot.js" type="text/javascript"></script>
 <script src="<%=basePath%>/scripts/swfupload/swfupload.js" type="text/javascript"></script>
+<script src="<%=basePath%>/scripts/super/super.js" type="text/javascript"></script>
 </head>
 </html>
 

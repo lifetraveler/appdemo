@@ -18,6 +18,9 @@ public class Permission extends AjaxEntity{
 	
 	String permission;
 	
+	
+	Boolean isSelected;
+	
 	public Permission(){
 		
 	}
@@ -40,6 +43,15 @@ public class Permission extends AjaxEntity{
 		this.permission = permission;
 	}
 
+	public Boolean getIsSelected() {
+		return isSelected;
+	}
+
+	public void setIsSelected(Boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+
+	
 	
 	
 

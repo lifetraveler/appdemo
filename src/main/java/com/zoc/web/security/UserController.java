@@ -45,14 +45,14 @@ public class UserController {
 	
 	@RequestMapping(value = "/list",method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<User> list(){
-		return userService.queryUsers(null);
+		return userService.list(null);
 	}
 	
 	@RequestMapping(value = "/save",method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String save(@RequestParam("data") String data){
 		logger.debug(data);
 		List<User> users = SuperUtils.parseArray(data, User.class);
-		userService.saveUser(users);
+		userService.batchSave(users);
 		return "success";
 	}
 	

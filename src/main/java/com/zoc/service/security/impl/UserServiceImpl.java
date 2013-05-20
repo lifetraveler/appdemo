@@ -9,6 +9,7 @@ import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.common.service.impl.SuperServiceImpl;
 import com.zoc.entity.security.User;
 import com.zoc.repository.security.UserDao;
 import com.zoc.service.security.UserService;
@@ -16,61 +17,44 @@ import com.zoc.service.security.UserService;
 
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends SuperServiceImpl<User, Long> implements UserService {
 	
 
 	private static final int SALT_SIZE = 8;
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Override
+	public void initStatements() {
+		this.setStatement(UserDao.class.getName());
+	}
 
 	public User fetchByUserName(String username) {
 		return userDao.fetchByUserName(username);
 	}
 
-	
 	@Override
-	public List<User> queryUsers(User user) {
-		return userDao.queryUsers(user);
-	}
-
-	@Override
-	public void saveUser(List<User> users) {
-		for (User user : users) {
-			String state = user.getState();
-			String id = user.getUid();
-			if (state.equals("added") || id.equals("")) // 新增：id为空，或_state为added
-			{
-				addUser(user);
-			} else if (state.equals("removed") || state.equals("deleted")) {
-				modifyUser(user);
-			} else if (state.equals("modified") || state.equals("")) // 更新：_state为空，或modified
-			{
-				removeUser(user);
-			}
-		}			
-	}
-	
-	@Override
-	public void addUser(User user) {
+	public void add(User user) {
 		user.setPlainPassword(user.getPassword());
 		user.setStatus("U");
 		entryptPassword(user);
-		userDao.insertUser(user);
+		userDao.insert(user);
 	}
 
 	@Override
-	public void modifyUser(User user) {
+	public void modify(User user) {
 		if (StringUtils.isNotBlank(user.getPassword())) {
+			user.setPlainPassword(user.getPassword());
 			entryptPassword(user);
 		}
-		userDao.updateUser(user);
+		userDao.update(user);
 	}
 
 	
 	@Override
-	public void removeUser(User user) {
-		userDao.deleteUser(user.getUsername());
+	public void remove(User user) {
+		userDao.delete(user);
 	}
 	
 	/**
@@ -82,6 +66,9 @@ public class UserServiceImpl implements UserService {
 		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), salt, SuperUtils.HASH_INTERATIONS);
 		user.setPassword(Encodes.encodeHex(hashPassword));
 	}
+
+
+	
 
 
 	

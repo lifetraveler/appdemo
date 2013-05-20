@@ -58,8 +58,20 @@ public class RoleController {
 	@RequiresPermissions(value = "role:save")
 	@RequestMapping(value = "/save", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	void save(@RequestParam("data") String data) {
+	String save(@RequestParam("data") String data) {
 		logger.debug(data);
+		Role role = SuperUtils.parseObject(data, Role.class);
+		if(SuperUtils.isNullOrEmpty(role.getRole_id()))
+			return "角色代码不能为空";
+		try{
+			roleService.save(role);
+			return "更新成功";
+		}catch(Exception e){
+			logger.debug("捕获到了");
+			e.printStackTrace();
+			return "更新失败";
+		}
+		
 	}
 
 }

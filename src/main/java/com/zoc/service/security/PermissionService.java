@@ -8,6 +8,8 @@
  */
 package com.zoc.service.security;
 
+import java.util.List;
+
 import com.zoc.common.service.SuperService;
 import com.zoc.entity.security.Permission;
 
@@ -18,5 +20,7 @@ import com.zoc.entity.security.Permission;
 public interface PermissionService extends SuperService<Permission, Long> {
 
 	public void addPermissions(Permission permission);
+	
+	public List<Permission> listPermissionByRoleIdMenuId(String menu_id,String role_id);
 
 }

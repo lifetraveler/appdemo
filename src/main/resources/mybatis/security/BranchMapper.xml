@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.security.BranchDao">
+
+	<select id="list" parameterType="Branch" resultType="Branch">
+		select * from sm_branch
+		<where>
+			<if test="branch_code != null">
+				branch_code = #{branch_code}
+			</if>
+		</where>
+		order by branch_order
+	</select>
+	
+	<select id="listChildren" parameterType="String" resultType="Menu">
+		select * from sm_branch
+		<where>
+			<if test="branch_code != null">
+				parent_branch = #{branch_code}
+			</if>
+		</where>
+		order by branch_order
+	</select>
+	
+	
+	<insert id="insert" parameterType="Branch">
+		insert into sm_branch values
+		(#{branch_code},#{branch_name},#{parent_branch},#{branch_order})
+	</insert>
+
+	<update id="update" parameterType="Branch">
+		update sm_branch
+		set branch_name =
+		#{branch_name}, parent_branch = #{parent_branch}, branch_order = #{branch_order}
+		where branch_code = #{branch_code}
+	</update>
+
+	<delete id="delete" parameterType="Branch">
+		delete from sm_branch where
+		branch_code = #{branch_code}
+	</delete>
+
+</mapper> 

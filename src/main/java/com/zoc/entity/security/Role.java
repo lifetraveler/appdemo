@@ -8,6 +8,8 @@
 */
 package com.zoc.entity.security;
 
+import java.util.List;
+
 import com.zoc.common.entity.AjaxEntity;
 
 /**
@@ -18,6 +20,8 @@ public class Role extends AjaxEntity {
 	
 	String role_id;
 	String role_desc;
+	
+	List<Menu> menus ;
 	/**
 	 * @return the role_id
 	 */
@@ -42,6 +46,14 @@ public class Role extends AjaxEntity {
 	public void setRole_desc(String role_desc) {
 		this.role_desc = role_desc;
 	}
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+	
+	
 	
 	
 	

@@ -58,6 +58,11 @@ public class MenuController {
 	public @ResponseBody Menu fetchByPermission(@RequestParam("menu_id") String menu_id) {
 		return menuService.fetchByPermission(menu_id);
 	}
+	
+	@RequestMapping(value = "/listByRoleId", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<Menu> listByRoleId(@RequestParam("role_id") String role_id) {
+		return menuService.listByRoleId(role_id);
+	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.GET, RequestMethod.POST })
 	@RequiresPermissions(value = "menu:save")
@@ -65,7 +70,7 @@ public class MenuController {
 	void save(@RequestParam("data") String data) {
 		logger.debug(data);
 		Menu menu = SuperUtils.parseObject(data, Menu.class);
-		menuService.save(menu, menu.getState());
+		menuService.save(menu);
 
 	}
 	

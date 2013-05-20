@@ -1,0 +1,8 @@
+role_id,menu_id,permission
+ALLROLES,right,test
+ALLROLES,right,test1
+ALLROLES,user,super
+ALLROLES,menu,zoc
+ALLROLES,role,role:list
+ALLROLES,standardcode,zq
+ALLROLES,database,zz

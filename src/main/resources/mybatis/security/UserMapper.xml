@@ -11,22 +11,22 @@
 		where username = #{username}
 	</select>
 	
-	<select id="queryUsers" parameterType="User" resultType="User">
+	<select id="list" parameterType="User" resultType="User">
 		select * from sm_user
 	</select>
 	
-	<insert id="insertUser" parameterType="User">
+	<insert id="insert" parameterType="User">
 		insert into sm_user values
-		(#{username},#{password},#{realname},#{salt},#{status},#{location})
+		(#{username},#{password},#{realname},#{salt},#{status},#{location},#{home_branch})
 	</insert>
 	
-	<update id="updateUser" parameterType="User">
+	<update id="update" parameterType="User">
 		update sm_user set
-		password = #{password},realname = #{realname},salt = #{salt} ,status = #{status} ,location = #{location}
+		password = #{password},realname = #{realname},salt = #{salt} ,status = #{status} ,location = #{location},home_branch = #{home_branch}
 		where username = #{username} 
 	</update>
 	
-	<delete id="deleteUser" parameterType="String">
+	<delete id="delete" parameterType="User">
 		delete from sm_user where username = #{username}
 	</delete>
 		

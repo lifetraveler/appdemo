@@ -57,16 +57,17 @@ body {
 				<!-- Left -->
 				<div size="180" maxSize="250" minSize="100" showCollapseButton="true" style="border: 0;">
 					<!--OutlookTree-->
-				<%-- 	<div id="leftTree" class="mini-outlooktree" url="<%=basePath%>/outlooktree.txt" onnodeselect="onNodeSelect" textField="text" idField="id" parentField="pid">
-					</div> --%>
 					<div id="leftTree" class="mini-outlooktree" url="<%=basePath%>/menu/list" onnodeselect="onNodeSelect" textField="menu_desc" idField="menu_id" parentField="parent_id">
 					</div>
 				</div>
 				<!-- Center -->
 				<div showCollapseButton="false" style="border: 0;">
-					<div id="mainTabs" class="mini-tabs" activeIndex="0" style="width: 100%; height: 100%;" plain="false">
+					<div id="mainTabs" class="mini-tabs" activeIndex="0" style="width: 100%; height: 100%;" plain="false" contextMenu="#tabsMenu">
 						<div title="首页" url="<%=basePath%>/overview.html"></div>
 					</div>
+					<ul id="tabsMenu" class="mini-contextmenu" onbeforeopen="onBeforeOpen">        
+				        <li onclick="reloadTab">刷新</li>                
+				    </ul>
 				</div>
 			</div>
 		</div>
@@ -75,16 +76,30 @@ body {
 		//init
 		mini.parse();
 		
+		var currTab = null;
+		
+		var tabs = mini.get("mainTabs");
+		
 		//left tree
 		var tree = mini.get("leftTree");
+		
+
+        function onBeforeOpen(e) {
+            currentTab = tabs.getTabByEvent(e.htmlEvent);
+            if (!currentTab) {
+                e.cancel = true;                
+            }
+        }
+		
+		function reloadTab(){
+			tabs.reloadTab(currTab);
+		}
 		
 		function showTab(node) {
 			
 			if(node.menu_url == null){
 				node.menu_url = '/nopage';
 			}
-			
-	        var tabs = mini.get("mainTabs");
 	
 	        var id = "tab$" + node.menu_id;
 	        var tab = tabs.getTab(id);

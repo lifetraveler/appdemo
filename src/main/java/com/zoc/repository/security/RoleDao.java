@@ -10,6 +10,7 @@ package com.zoc.repository.security;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.zoc.common.repository.MyBatisRepository;
@@ -25,6 +26,10 @@ import com.zoc.entity.security.User;
  * 
  */
 @MyBatisRepository
-public interface RoleDao extends SuperDao<Role>{
+public interface RoleDao extends SuperDao<Role> {
 
+	public void deleteRoleMenuPermissionByRoleId(String role_id);
+
+	public void insertRoleMenuPermission(@Param("role_id") String role_id, @Param("menu_id") String menu_id,
+			@Param("permission") String permission);
 }

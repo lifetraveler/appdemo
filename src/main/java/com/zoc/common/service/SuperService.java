@@ -37,7 +37,7 @@ public interface SuperService<T extends AjaxEntity, ID extends Serializable> {
 	
 	public void batchSave(List<T> data);
 	
-	public void save(T t, String state);
+	public void save(T t);
 	
 	public void upload(List<T> lists);
 

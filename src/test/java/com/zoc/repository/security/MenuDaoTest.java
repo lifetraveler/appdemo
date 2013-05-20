@@ -36,22 +36,28 @@ public class MenuDaoTest extends SpringTransactionalTestCase{
 	
 	private static Logger logger = LoggerFactory.getLogger(MenuDaoTest.class);
 	
-	@Test
-	public void listTest(){
-		List<Menu> menus = menuDao.list(null);
-		logger.debug("result is : {}",JSON.toJSONString(menus) );
-	}
+//	@Test
+//	public void listTest(){
+//		List<Menu> menus = menuDao.list(null);
+//		logger.debug("result is : {}",JSON.toJSONString(menus) );
+//	}
+//	
+//	@Test
+//	public void fetchByPermissionTest(){
+//		Menu menu = menuDao.fetchByPermission("role");
+//		logger.debug("FetchByPermissionTest Result : {}",JSON.toJSONString(menu));
+//	}
+//	
+//	@Test 
+//	public void insertMenuPermissionTest(){
+//		logger.debug("Begin insertMenuPermissionTest");
+//		menuDao.insertMenuPermission("super", "zoc");
+//	}
 	
 	@Test
-	public void fetchByPermissionTest(){
-		Menu menu = menuDao.fetchByPermission("role");
-		logger.debug("FetchByPermissionTest Result : {}",JSON.toJSONString(menu));
-	}
-	
-	@Test 
-	public void insertMenuPermissionTest(){
-		logger.debug("Begin insertMenuPermissionTest");
-		menuDao.insertMenuPermission("super", "zoc");
+	public void fetchByRoleIdTest(){
+		List<Menu> lists = menuDao.listByRoleId("ALLROLES");
+		logger.debug("result is : {}",JSON.toJSONString(lists) );
 	}
 
 }

@@ -84,7 +84,7 @@ public class UserServiceImplTest extends SpringTransactionalTestCase {
 			user.setLocation(location.getCode_value());
 			user.setPassword("123456");
 			user.setRealname(location.getCode_type());
-			userService.addUser(user);
+			userService.add(user);
 			logger.debug(JSON.toJSONString(user));
 		}
 		

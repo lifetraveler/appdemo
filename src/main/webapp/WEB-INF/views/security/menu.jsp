@@ -54,7 +54,7 @@
 	        </div>
 	        <div class="mini-fit">
 	            <ul id="tree1" class="mini-tree" url="<%=basePath%>/menu/list" style="width:100%;"
-	                showTreeIcon="true" textField="menu_desc" idField="menu_id" parentField="parent_id" resultAsTree="false" >        
+	                showTreeIcon="true" textField="menu_desc" idField="menu_id" parentField="parent_id" resultAsTree="false"  expandOnLoad='0'>        
 	            </ul>
 	        </div>
 		</div>
@@ -169,11 +169,11 @@
 	 	var form = new mini.Form("fd1");
 	 	var selectedNode;
 	 	grid.load();
-	 	readonlyModel();
+	 	readonlyModel(form);
 	 	
 	 	tree.on("nodeselect", function (e) {
 	 		 selectedNode = e;
-	 		 readonlyModel();
+	 		 readonlyModel(form);
 	 		 selectedList.removeAll();
 	 		 $.ajax({
 	 			url  : '<%=basePath%>/menu/fetchByPermission',
@@ -187,25 +187,6 @@
 	 		 
         });
 	 	
-	 	function readonlyModel(){
-	 		var fields = form.getFields();
-	 		for (var i = 0, l = fields.length; i < l; i++) {
-	            var c = fields[i];
-	            if (c.setReadOnly) c.setReadOnly(true);     //只读
-	            if (c.addCls) c.addCls("asLabel");          //增加asLabel外观
-	        }
-	 	}
-	 	
-	 	function editModel(callback){
-	 		var fields = form.getFields();
-            for (var i = 0, l = fields.length; i < l; i++) {
-                var c = fields[i];
-                if (c.setReadOnly) c.setReadOnly(false);
-                if (c.removeCls) c.removeCls("asLabel");
-                if(callback) callback(c);
-            }
-            mini.repaint(document.body);
-	 	}
 	 	
 	 	function onSearchClick(e) {
             grid.load({
@@ -214,20 +195,15 @@
         }
 	 	
 	 	function addRow(){
-	 		editModel();
-            form.reset();
-            form.setData({state:'added'});
+	 		editModel(form,'added');
             removeAllSelecteds();
 	 	}
 	 	
 	 	function updateRow(){
-	 		editModel(function(field){
+	 		editModel(form,'modified',function(field){
 	 			if(field.name == 'menu_id'){
 	 				if (field.setReadOnly) field.setReadOnly(true);     //只读
 		            if (field.addCls) field.addCls("asLabel");          //增加asLabel外观
-	 			}
-	 			if(field.name == 'state'){
-	 				field.value = 'modified';
 	 			}
 	 		});
 	 	}

@@ -3,7 +3,40 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.zoc.repository.security.RoleDao">
+	
+	<resultMap type="Role" id="roleResult">
+		<id property="role_id" column="role_id"/>
+		<result property="role_desc" column = "role_desc"/>
+		<collection property="menus" ofType="Menu">
+			<result property="menu_id" column="menu_id"/>
+		</collection>
+	</resultMap>
+
 	<select id="list" parameterType="Role" resultType="Role">
 		select * from sm_role
 	</select>
+	
+	<insert id="insert" parameterType="Role">
+		insert into sm_role
+		values
+		(#{role_id},#{role_desc})
+	</insert>
+	
+	<update id="update" parameterType="Role">
+		update sm_role set role_desc = #{role_desc}
+		where role_id = #{role_id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from sm_role where role_id = #{role_id}
+	</delete>
+	
+	<delete id="deleteRoleMenuPermissionByRoleId" parameterType="String">
+		delete from sm_role_menu_permission where role_id = #{role_id}
+	</delete>
+	
+	<insert id="insertRoleMenuPermission" parameterType="String">
+		insert into sm_role_menu_permission
+		values(#{role_id},#{menu_id},#{permission})
+	</insert>
 </mapper> 

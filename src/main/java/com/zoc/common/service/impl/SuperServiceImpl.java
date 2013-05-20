@@ -81,23 +81,23 @@ public abstract class SuperServiceImpl<T extends AjaxEntity, ID extends Serializ
 		sqlSession.delete(statement + ".delete", t);
 
 	}
-	
+
 	@Transactional
 	public void batchSave(List<T> data) {
-		for(T t : data){
-			save(t,t.getState());
+		for (T t : data) {
+			save(t);
 		}
-		
+
 	}
 
 	@Transactional
-	public void save(T t, String state) {
-		if (state.equals("added")) // 新增：id为空，或_state为added
+	public void save(T t) {
+		if (t.getState().equals("added")) // 新增：id为空，或_state为added
 		{
 			add(t);
-		} else if (state.equals("removed") || state.equals("deleted")) {
+		} else if (t.getState().equals("removed") || t.getState().equals("deleted")) {
 			remove(t);
-		} else if (state.equals("modified") || state.equals("")) // 更新：_state为空，或modified
+		} else if (t.getState().equals("modified")) // 更新：_state为空，或modified
 		{
 			modify(t);
 		}

@@ -3,6 +3,7 @@ right,权限管理,,0,
 user,用户管理,right,1,/user
 menu,菜单管理,right,2,/menu
 role,角色管理,right,3,/role
+branch,机构管理,right,3,/branch
 standardcode,标准代码,right,4,/standardcode
 database,数据库,right,5,/h2
 extractData,采集数据,,1,
