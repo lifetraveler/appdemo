@@ -8,19 +8,12 @@
 */
 package com.zoc.common;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.h2.server.web.WebServer;
-import org.h2.util.New;
+import org.activiti.engine.impl.db.DbSchemaCreate;
+import org.h2.server.web.DbSchema;
 import org.nutz.resource.Scans;
 
 /**
@@ -29,8 +22,8 @@ import org.nutz.resource.Scans;
  */
 public class StartSetupServlet extends HttpServlet {
 	
+	@Override
 	public void init() {
-        List<Class<?>> controllers = Scans.me().scanPackage("com.zoc.web");
     }
 
 }

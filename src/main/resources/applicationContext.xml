@@ -24,7 +24,7 @@
 		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 		<property name="typeAliasesPackage" value="com.zoc.entity" />
 		<!-- 增加分页设置 -->
-		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<!-- 显式指定Mapper文件位置 -->
 		<property name="mapperLocations" value="classpath:/mybatis/*/*Mapper.xml" />
 	</bean>
@@ -38,80 +38,84 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-  		<constructor-arg index="0" ref="sqlSessionFactory" />
-  		<!-- <constructor-arg index="1" value="BATCH" /> -->
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<!-- <constructor-arg index="1" value="BATCH" /> -->
 	</bean>
 
 	<!-- 使用annotation定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
-	<!-- JSR303 Validator定义 -->
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<!-- Activiti begin -->
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
+		<property name="history" value="full" />
+		<property name="processDefinitionCacheLimit" value="10" />
 
-	<!-- production环境 -->
-	<beans profile="production">
-		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />
+		<!-- 生成流程图的字体 -->
+		<property name="activityFontName" value="宋体" />
+		<property name="labelFontName" value="宋体" />
 
-		<!-- 数据源配置, 使用DBCP数据库连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<!-- Connection Info -->
-			<property name="driverClassName" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
+		<!-- 自动部署 -->
+		<property name="deploymentResources">
+			<list>
+				<value>classpath*:/deployments/*</value>
+			</list>
+		</property>
 
-			<!-- Connection Pooling Info -->
-			<property name="maxActive" value="${dbcp.maxActive}" />
-			<property name="maxIdle" value="${dbcp.maxIdle}" />
-			<property name="defaultAutoCommit" value="false" />
-			<!-- 连接Idle一个小时后超时 -->
-			<property name="timeBetweenEvictionRunsMillis" value="3600000" />
-			<property name="minEvictableIdleTimeMillis" value="3600000" />
-		</bean>
+		<!-- 全局监听器 -->
+		<property name="globalTaskListener">
+			<bean class="com.zoc.common.activiti.GlobalTaskListener" />
+		</property>
+	</bean>
 
-		<!-- 初始化数据结构与默认数据 -->
-		<!-- 使用改配置，需将defaultAutoCommit注释掉 -->
-		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/h2/schema.sql" />
-			<jdbc:script location="classpath:data/h2/import-csv.sql" encoding="UTF-8" />
-		</jdbc:initialize-database>
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
 
-		<!-- <jdbc:embedded-database id="dataSource" type="H2"> <jdbc:script location="classpath:sql/h2/schema.sql" /> <jdbc:script 
-			location="classpath:data/h2/import-data.sql" encoding="UTF-8" /> </jdbc:embedded-database> -->
-	</beans>
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+	<bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	<!-- Activiti end -->
 
-	<!-- test环境 目前和生产环境数据一致 -->
-	<beans profile="test">
-		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />
 
-		<!-- 数据源配置, 使用DBCP数据库连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<!-- Connection Info -->
-			<property name="driverClassName" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />
 
-			<!-- Connection Pooling Info -->
-			<property name="maxActive" value="${dbcp.maxActive}" />
-			<property name="maxIdle" value="${dbcp.maxIdle}" />
-			<property name="defaultAutoCommit" value="false" />
-			<!-- 连接Idle一个小时后超时 -->
-			<property name="timeBetweenEvictionRunsMillis" value="3600000" />
-			<property name="minEvictableIdleTimeMillis" value="3600000" />
-		</bean>
+	<!-- 数据源配置, 使用DBCP数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
 
-		<!-- 初始化数据结构与默认数据 -->
-		<!-- 使用改配置，需将defaultAutoCommit注释掉 -->
-		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/h2/schema.sql" />
-			<jdbc:script location="classpath:data/h2/import-csv.sql" encoding="UTF-8" />
-		</jdbc:initialize-database>
+		<!-- Connection Pooling Info -->
+		<property name="maxActive" value="${dbcp.maxActive}" />
+		<property name="maxIdle" value="${dbcp.maxIdle}" />
+		<property name="defaultAutoCommit" value="false" />
+		<!-- 连接Idle一个小时后超时 -->
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="3600000" />
+	</bean>
 
-		<!-- <jdbc:embedded-database id="dataSource" type="H2"> <jdbc:script location="classpath:sql/h2/schema.sql" /> <jdbc:script 
-			location="classpath:data/h2/import-data.sql" encoding="UTF-8" /> </jdbc:embedded-database> -->
-	</beans>
+	<!-- 初始化数据结构与默认数据 -->
+	<!-- 使用改配置，需将defaultAutoCommit注释掉 -->
+	<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+		<jdbc:script location="classpath:sql/h2/schema.sql" />
+		<jdbc:script location="classpath:data/h2/import-csv.sql" encoding="UTF-8" />
+	</jdbc:initialize-database>
+
+	<!-- <jdbc:embedded-database id="dataSource" type="H2"> <jdbc:script location="classpath:sql/h2/schema.sql" /> <jdbc:script 
+		location="classpath:data/h2/import-data.sql" encoding="UTF-8" /> </jdbc:embedded-database> -->
+
+
 
 </beans>

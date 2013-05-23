@@ -22,8 +22,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
-import com.zoc.repository.security.StandardCodeDaoTest;
-
 /**
  * @author Administrator
  *

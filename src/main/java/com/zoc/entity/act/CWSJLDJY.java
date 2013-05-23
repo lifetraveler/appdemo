@@ -39,10 +39,12 @@ public class CWSJLDJY extends BaseActEntity {
 	@ExcelAnnotation(cellIndex = 15)
 	int c16;
 
+	@Override
 	public Integer getYear() {
 		return year;
 	}
 
+	@Override
 	public void setYear(Integer year) {
 		this.year = year;
 	}

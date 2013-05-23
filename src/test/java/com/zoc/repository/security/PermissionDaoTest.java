@@ -19,7 +19,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import com.alibaba.fastjson.JSON;
-import com.zoc.entity.security.Menu;
 import com.zoc.entity.security.Permission;
 
 /**

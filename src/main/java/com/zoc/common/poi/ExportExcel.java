@@ -8,7 +8,6 @@
  */
 package com.zoc.common.poi;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
@@ -41,7 +40,7 @@ public class ExportExcel<T> {
 			// 首先检查数据看是否是正确的
 			Iterator<T> its = dataset.iterator();
 			// 取得实际泛型类
-			T ts = (T) its.next();
+			T ts = its.next();
 			Class tCls = ts.getClass();
 
 			/* get excel template */

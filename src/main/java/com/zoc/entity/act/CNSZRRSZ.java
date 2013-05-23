@@ -20,9 +20,11 @@ public class CNSZRRSZ extends BaseActEntity {
 	Integer c7;
 	@ExcelAnnotation(cellIndex = 7)
 	Integer c8;
+	@Override
 	public String getC1() {
 		return c1;
 	}
+	@Override
 	public void setC1(String c1) {
 		this.c1 = c1;
 	}

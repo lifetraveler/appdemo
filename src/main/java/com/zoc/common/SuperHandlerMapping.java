@@ -8,31 +8,19 @@
 */
 package com.zoc.common;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.ibatis.session.ExecutorType;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.alibaba.fastjson.JSON;
 import com.zoc.entity.security.Permission;
-import com.zoc.repository.security.StandardCodeDaoTest;
 import com.zoc.service.security.PermissionService;
 
 /**
@@ -59,7 +47,7 @@ public class SuperHandlerMapping extends RequestMappingHandlerMapping {
 		
 		
 		while(iter.hasNext()){
-			Map.Entry entry = (Entry) iter.next();
+			Map.Entry entry = iter.next();
 			
 			HandlerMethod handlerMethod = (HandlerMethod) entry.getValue();
 			

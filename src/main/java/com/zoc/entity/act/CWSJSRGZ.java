@@ -40,9 +40,11 @@ public class CWSJSRGZ extends BaseActEntity {
 	BigDecimal c16;
 	@ExcelAnnotation(cellIndex = 16)
 	BigDecimal c17;
+	@Override
 	public Integer getYear() {
 		return year;
 	}
+	@Override
 	public void setYear(Integer year) {
 		this.year = year;
 	}

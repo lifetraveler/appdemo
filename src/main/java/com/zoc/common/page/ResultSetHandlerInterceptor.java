@@ -3,7 +3,6 @@ package com.zoc.common.page;
 import java.sql.Statement;
 import java.util.Properties;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Interceptor;

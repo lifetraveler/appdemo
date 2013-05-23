@@ -8,13 +8,10 @@
  */
 package com.zoc.repository.security;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.slf4j.Logger;

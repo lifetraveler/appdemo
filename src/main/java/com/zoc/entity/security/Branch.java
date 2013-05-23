@@ -8,8 +8,6 @@
 */
 package com.zoc.entity.security;
 
-import java.util.List;
-
 import com.zoc.common.entity.AjaxEntity;
 
 /**

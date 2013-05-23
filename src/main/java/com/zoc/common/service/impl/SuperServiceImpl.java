@@ -7,13 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.zoc.common.entity.AjaxEntity;
 import com.zoc.common.page.SuperPage;
-import com.zoc.common.repository.SuperDao;
-import com.zoc.common.service.SuperService;
-import com.zoc.entity.act.CNSZJJSQ;
 
 @Transactional(readOnly = true)
 public abstract class SuperServiceImpl<T extends AjaxEntity, ID extends Serializable> {

@@ -4,11 +4,10 @@ import java.util.List;
 
 import com.zoc.common.service.SuperService;
 import com.zoc.entity.act.CNSZJJSQ;
-import com.zoc.entity.act.CNSZRRSX;
-import com.zoc.entity.act.CNSZRRSZ;
 
 public interface CNSZJJSQService extends SuperService<CNSZJJSQ, Long> {
 	
+	@Override
 	public void batchSave(List<CNSZJJSQ> data);
 
 }

@@ -1,8 +1,6 @@
 package com.zoc.web.act;
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,15 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
-import com.zoc.common.entity.AjaxEntity;
 import com.zoc.common.poi.ExportExcel;
 import com.zoc.common.poi.ImportExcel;
 import com.zoc.common.service.SuperService;
 import com.zoc.entity.act.BaseActEntity;
-import com.zoc.entity.act.CNSZJJSQ;
-import com.zoc.entity.act.CNSZRRSZ;
 import com.zoc.entity.act.UploadParam;
-import com.zoc.service.act.ActService;
 import com.zoc.service.act.UploadParamService;
 
 public abstract class ActController<T extends BaseActEntity> {
@@ -53,7 +47,7 @@ public abstract class ActController<T extends BaseActEntity> {
 				for (MultipartFile file : files) {
 
 					// 传入数据
-					lists.addAll((List<T>) in.importExcel(file.getInputStream(), uploadParam));
+					lists.addAll(in.importExcel(file.getInputStream(), uploadParam));
 
 					if (uploadParam.getRow_check().equals("C")) {
 						int paramColSize = uploadParam.getRow_end() - uploadParam.getRow_start() + 1;

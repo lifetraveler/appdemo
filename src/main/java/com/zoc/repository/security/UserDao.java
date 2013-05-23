@@ -8,8 +8,6 @@
  */
 package com.zoc.repository.security;
 
-import java.util.List;
-
 import com.zoc.common.repository.MyBatisRepository;
 import com.zoc.common.repository.SuperDao;
 import com.zoc.entity.security.User;

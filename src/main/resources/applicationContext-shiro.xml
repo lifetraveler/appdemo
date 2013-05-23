@@ -29,6 +29,7 @@
 				/scripts/** = anon
 				/h2/** = anon
 				/** = user
+				/activiti-explorer/** = anon
 			</value>
 		</property>
 	</bean>

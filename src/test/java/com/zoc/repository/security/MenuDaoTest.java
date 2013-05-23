@@ -8,7 +8,6 @@
 */
 package com.zoc.repository.security;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,7 +20,6 @@ import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import com.alibaba.fastjson.JSON;
 import com.zoc.entity.security.Menu;
-import com.zoc.entity.security.Permission;
 
 /**
  * @author Administrator
