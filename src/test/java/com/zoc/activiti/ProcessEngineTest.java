@@ -51,17 +51,9 @@ public class ProcessEngineTest extends SpringTransactionalTestCase {
 	 */
 	@Test
 	public void testProcessEngines() {
-		assertNotNull(repositoryService);
-		assertNotNull(runtimeService);
-		assertNotNull(formService);
-		assertNotNull(identityService);
-		assertNotNull(taskService);
-		assertNotNull(historyService);
-		assertNotNull(managementService);
-		
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("financialReport");
 		String processId = processInstance.getId();
-		System.out.println("nimei" + processId);
+		System.out.println("process id " + processId);
 	}
 
 }
