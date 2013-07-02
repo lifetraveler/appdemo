@@ -22,5 +22,7 @@ public interface PermissionService extends SuperService<Permission, Long> {
 	public void addPermissions(Permission permission);
 	
 	public List<Permission> listPermissionByRoleIdMenuId(String menu_id,String role_id);
+	
+	public void deleteAll();
 
 }

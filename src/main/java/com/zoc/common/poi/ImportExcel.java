@@ -19,6 +19,8 @@ import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellValue;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 
 import com.zoc.entity.act.UploadParam;
@@ -76,37 +78,47 @@ public class ImportExcel<T> {
 			HSSFSheet sheet = book.getSheet(param.getSheet_name());
 			// 得到第一面的所有行
 			Iterator<Row> rows = sheet.rowIterator();
+			
+			FormulaEvaluator evaluator = book.getCreationHelper().createFormulaEvaluator();
 
 			while (rows.hasNext()) {
 				Row row = rows.next();
-				if (row.getRowNum() < param.getRow_start())
+				if (row.getRowNum() < param.getRow_start() || row.getRowNum() > param.getRow_end())
 					continue;
 				else {
 					T obj = classzz.newInstance();
+					boolean allNull = true;
 					for (ExcelMap em : fieldList) {
 						Cell cell = row.getCell(em.getIndex());
 						if (cell == null) {
 							continue;
-						}
-						switch (cell.getCellType()) {
-						case Cell.CELL_TYPE_NUMERIC:
-							String type = em.getColType().toString();
-							if (type.equals("class java.lang.Double")) {
-								em.getMethod().invoke(obj,
-										(double) Math.round(cell.getNumericCellValue() * 100 / 100.0));
-							} else if (type.equals("class java.lang.Integer")) {
-								em.getMethod().invoke(obj, (int) cell.getNumericCellValue());
-							} else {
-								em.getMethod().invoke(obj, BigDecimal.valueOf(cell.getNumericCellValue()));
-							}
+						} else {
+							allNull = false;
+							switch (cell.getCellType()) {
+							case Cell.CELL_TYPE_FORMULA:
+							case Cell.CELL_TYPE_NUMERIC:
+								String type = em.getColType().toString();
+								if (type.equals("class java.lang.Double")) {
+									em.getMethod().invoke(obj,
+											(double) Math.round(cell.getNumericCellValue() * 100 / 100.0));
+								} else if (type.equals("class java.lang.Integer")) {
+									em.getMethod().invoke(obj, (int) cell.getNumericCellValue());
+								} else {
+									em.getMethod().invoke(obj, BigDecimal.valueOf(cell.getNumericCellValue()));
+								}
 
-							break;
-						case Cell.CELL_TYPE_STRING:
-							em.getMethod().invoke(obj, cell.getStringCellValue());
-							break;
+								break;
+							case Cell.CELL_TYPE_STRING:
+								em.getMethod().invoke(obj, cell.getStringCellValue());
+								break;
+							}
 						}
+
 					}
-					dist.add(obj);
+					if (!allNull) {
+						dist.add(obj);
+					}
+
 				}
 			}
 

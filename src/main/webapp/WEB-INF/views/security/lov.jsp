@@ -39,14 +39,12 @@ body {
     </div>
     <div class="mini-fit">
 
-        <div id="grid1" class="mini-datagrid" style="width:100%;height:100%;" 
-            idField="id" allowResize="true"
-            borderStyle="border-left:0;border-right:0;" onrowdblclick="onRowDblClick"
-        >
+        <div id="grid1" class="mini-datagrid" style="width:100%;height:100%;" idField="id" allowResize="true" borderStyle="border-left:0;border-right:0;" onrowdblclick="onRowDblClick">
             <div property="columns">
                 <div type="indexcolumn" ></div>
-                <div field="branch_code" width="120" headerAlign="center" allowSort="true">机构代码</div>    
-                <div field="branch_name" width="100%" headerAlign="center" allowSort="true">机构名称</div>                                            
+                <c:forEach items="${lov_attr.fields}" var="field">
+                	<div field="${field.key}" width="120" headerAlign="center" allowSort="true">${field.value}</div>   
+                </c:forEach>                                           
             </div>
         </div>
     
@@ -62,7 +60,7 @@ body {
 	    var grid = mini.get("grid1");
 	
 	    //动态设置URL
-	    grid.setUrl("<%=basePath%>/branch/list");
+	    grid.setUrl("<%=basePath%>/${lov_attr.lov_url}");
 	    //也可以动态设置列 grid.setColumns([]);
 	
 	    grid.load();

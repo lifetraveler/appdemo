@@ -6,8 +6,5 @@ import com.zoc.common.service.SuperService;
 import com.zoc.entity.act.CNSZJJSQ;
 
 public interface CNSZJJSQService extends SuperService<CNSZJJSQ, Long> {
-	
-	@Override
-	public void batchSave(List<CNSZJJSQ> data);
 
 }

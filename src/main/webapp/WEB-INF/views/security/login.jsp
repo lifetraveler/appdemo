@@ -9,9 +9,112 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>欢迎登陆社会保障精算业务系统</title>
+<title>社会保险精算基础数据管理平台</title>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/scripts/login/css/layout.css" />
+<style type="text/css">
+.STYLE1 {
+	font-size: 11pt;
+	font-weight: bold;
+}
+.login {
+	background-image:url(<%=basePath%>/scripts/login/images/loginbg.png);
+	width:517px;
+	height:339px;
+	margin:15% auto 0 auto;
+}
+#form1{
+padding:150px 0 0 0;
+float:left;
+}
+
+</style>
+<script type="text/javascript">  
+(function($){
+	$.fn.supersized = function() {
+		$.inAnimation = false;
+		$.paused = false;
+		var options = $.extend($.fn.supersized.defaults, $.fn.supersized.options);
+		
+		$(window).bind("load", function(){
+			$('#loading').hide();
+			$('#supersize').fadeIn('fast');
+			
+			
+		});
+				
+		$(document).ready(function() {
+			$('#supersize').resizenow(); 
+		});
+		
+		$(window).bind("resize", function(){
+    		$('#supersize').resizenow(); 
+		});
+		
+	};
+	
+	//Adjust image size
+	$.fn.resizenow = function() {
+		var options = $.extend($.fn.supersized.defaults, $.fn.supersized.options);
+	  	return this.each(function() {
+	  		
+			//Define image ratio
+			var ratio = options.startheight/options.startwidth;
+			
+			//Gather browser and current image size
+			var imagewidth = $(this).width();
+			var imageheight = $(this).height();
+			var browserwidth = $(window).width();
+			var browserheight = $(window).height();
+			var offset;
+			
+
+			//Resize image to proper ratio
+			if ((browserheight/browserwidth) > ratio){
+			    $(this).height(browserheight);
+			    $(this).width(browserheight / ratio);
+			    $(this).children().height(browserheight);
+			    $(this).children().width(browserheight / ratio);
+			} else {
+			    $(this).width(browserwidth);
+			    $(this).height(browserwidth * ratio);
+			    $(this).children().width(browserwidth);
+			    $(this).children().height(browserwidth * ratio);
+			}
+			if (options.vertical_center == 1){
+				$(this).children().css('left', (browserwidth - $(this).width())/2);
+				$(this).children().css('top', (browserheight - $(this).height())/2);
+			}
+			return false;
+		});
+	};
+	
+})(jQuery);
+
+
+$(function(){
+	$.fn.supersized.options = {  
+		startwidth: 1440,  
+		startheight: 900,
+		vertical_center: 1,
+		slideshow: 1,
+		navigation: 1,
+		transition: 1, 
+		pause_hover: 0,
+		slide_counter: 1,
+		slide_captions: 1,
+		slide_interval: 1000  
+	};
+	$('#supersize').supersized(); 
+});
+	
+</script>
 </head>
 <body>
+	<div id="supersize">
+        <a href="javascript:;">
+        	<img src="<%=basePath%>/scripts/login/images/bg.jpg" alt="" title="Forestt Studio" />
+        </a>
+	</div>
 	<div id="loginWindow" class="mini-window" title="用户登录"
 		style="width: 350px; height: 165px;" showModal="true"
 		showCloseButton="false">
@@ -53,13 +156,13 @@
 			%>
 			
 	<script type="text/javascript">
-        mini.parse();
-        var loginWindow = mini.get("loginWindow");
-        loginWindow.show();
-        
-        function onLoginClick(){
-        	document.forms["loginform"].submit();
-        }
+		mini.parse();
+	    var loginWindow = mini.get("loginWindow");
+	    loginWindow.show();
+	    
+	    function onLoginClick(){
+	    	document.forms["loginform"].submit();
+	    }
     </script>
 </body>
 </html>

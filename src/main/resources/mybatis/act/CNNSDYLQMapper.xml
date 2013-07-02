@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.CNNSDYLQDao">
+
+	<select id="list" resultType="CNNSDYLQ" parameterType="CNNSDYLQ">
+		select c1,location,year,
+		sum(nvl(c2,0)) c2,
+		sum(nvl(c3,0)) c3,
+		sum(nvl(c4,0)) c4,
+		avg(nvl(c5,0)) c5,
+		avg(nvl(c6,0)) c6,
+		avg(nvl(c7,0)) c7,
+		sum(nvl(c8,0)) c8,
+		sum(nvl(c9,0)) c9,
+		sum(nvl(c10,0)) c10,
+		avg(nvl(c11,0)) c11,
+		avg(nvl(c12,0)) c12,
+		avg(nvl(c13,0)) c13
+		from ACT_CNNSDYLQ
+		<where>
+			<if test="location != '100000'">
+				location = #{location}
+			</if>
+		</where>
+		group by c1,location,year
+		order by c0
+	</select>
+
+	<insert id="insert" parameterType="CNNSDYLQ">
+		insert into ACT_CNNSDYLQ values
+		(#{c1},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{c9},#{c10},#{c11},#{c12},#{c13},#{location},#{year},#{c0})
+	</insert>
+
+	<update id="update" parameterType="CNNSDYLQ">
+		update ACT_CNNSDYLQ set c1 = #{c1},
+		c2 = #{c2},c3 = #{c3},c4 = #{c4},c5 =
+		#{c5},c6 = #{c6},c7 = #{c7},c8 = #{c8},c9 = #{c9},c10 = #{c10},c11 = #{c11},c12 = #{c12},c13 = #{c13}
+		where location = #{location}
+		and year = #{year}
+	</update>
+
+	<delete id="delete" parameterType="CNNSDYLQ">
+		delete from ACT_CNNSDYLQ
+		<where>
+			<if test="location != null">
+				and location = #{location}
+			</if>
+			<if test="year != null">
+				and year = #{year}
+			</if>
+		</where>
+	</delete>
+
+</mapper> 

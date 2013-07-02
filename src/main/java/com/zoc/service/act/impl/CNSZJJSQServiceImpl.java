@@ -10,9 +10,6 @@ import com.zoc.service.act.CNSZJJSQService;
 @Service
 public class CNSZJJSQServiceImpl extends SuperServiceImpl<CNSZJJSQ, Long> implements CNSZJJSQService {
 
-	@Autowired
-	CNSZJJSQDao cnszjjsqDao;
-
 	@Override
 	public void initStatements() {
 		this.setStatement(CNSZJJSQDao.class.getName());

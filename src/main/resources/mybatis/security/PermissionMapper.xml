@@ -29,6 +29,10 @@
 		on a.menu_id = b.menu_id and a.permission = b.permission and  b.role_id = #{role_id} 
 		where a.menu_id = #{menu_id}
 	</select>
+	
+	<delete id="deleteAll" >
+		delete from sm_permissions
+	</delete>
 
 
 </mapper> 

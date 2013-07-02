@@ -29,5 +29,14 @@
 	<delete id="delete" parameterType="User">
 		delete from sm_user where username = #{username}
 	</delete>
+	
+	<insert id="insertUserRole" parameterType="UserRole">
+		insert into sm_user_role values
+		(#{username},#{role_id},#{branch_code});
+	</insert>
+	
+	<select id="selectUserRole" parameterType="String" resultType="UserRole">
+		select * from sm_user_role where username = #{username}
+	</select>
 		
 </mapper> 

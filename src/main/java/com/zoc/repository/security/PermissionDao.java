@@ -23,6 +23,8 @@ import com.zoc.entity.security.Permission;
 public interface PermissionDao extends SuperDao<Permission> {
 	public void insertPermission(Permission permission);
 	
+	public void deleteAll();
+	
 	public List<Permission> listPermissionByRoleIdMenuId(@Param("menu_id") String menu_id,@Param("role_id") String role_id);
 	
 }

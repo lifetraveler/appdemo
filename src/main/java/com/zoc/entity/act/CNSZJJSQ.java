@@ -23,11 +23,9 @@ public class CNSZJJSQ extends BaseActEntity {
 	@ExcelAnnotation(cellIndex = 7)
 	BigDecimal c8;
 	
-	@Override
 	public String getC1() {
 		return c1;
 	}
-	@Override
 	public void setC1(String c1) {
 		this.c1 = c1;
 	}

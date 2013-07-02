@@ -13,7 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
-<title>社会保障精算分析系统</title>
+<title>社会保险精算基础数据管理平台</title>
 
 
 <style type="text/css">
@@ -35,7 +35,7 @@ body {
 	<!-- Layout -->
 	<div id="mainLayout" class="mini-layout" style="width: 100%; height: 100%;">
 		<div class="header" region="north" height="80" showSplit="false" showHeader="false">
-			<h1 style="margin: 0; padding: 15px; cursor: default; font-family: 微软雅黑, 黑体, 宋体;">社会保障精算分析系统</h1>
+			<h1 style="margin: 0; padding: 15px; cursor: default; font-family: 微软雅黑, 黑体, 宋体;">社会保险精算基础数据管理平台</h1>
 			<div style="position: absolute; top: 18px; right: 10px;">
 					<a class="mini-button mini-button-iconTop" iconCls="icon-add" onclick="onQuickClick" plain="true">快捷</a> 
 					<a class="mini-button mini-button-iconTop" iconCls="icon-edit" onclick="onClick" plain="true">首页</a> 
@@ -55,9 +55,9 @@ body {
 			<!--Splitter-->
 			<div class="mini-splitter" style="width: 100%; height: 100%;" borderStyle="border:0;">
 				<!-- Left -->
-				<div size="180" maxSize="250" minSize="100" showCollapseButton="true" style="border: 0;">
+				<div size="300" maxSize="600" minSize="100" showCollapseButton="true" style="border: 0;">
 					<!--OutlookTree-->
-					<div id="leftTree" class="mini-outlooktree" url="<%=basePath%>/menu/list" onnodeselect="onNodeSelect" textField="menu_desc" idField="menu_id" parentField="parent_id">
+					<div id="leftTree" class="mini-outlooktree" url="<%=basePath%>/menu/list" onnodeselect="onNodeSelect" textField="menu_desc" idField="menu_id" parentField="parent_id" expandOnLoad=true>
 					</div>
 				</div>
 				<!-- Center -->
@@ -65,7 +65,7 @@ body {
 					<div id="mainTabs" class="mini-tabs" activeIndex="0" style="width: 100%; height: 100%;" plain="false" contextMenu="#tabsMenu">
 						<div title="首页" url="<%=basePath%>/overview.html"></div>
 					</div>
-					<ul id="tabsMenu" class="mini-contextmenu" onbeforeopen="onBeforeOpen">        
+					<ul id="tabsMenu" class="mini-contextmenu" onbeforeopen="onBeforeOpen" >        
 				        <li onclick="reloadTab">刷新</li>                
 				    </ul>
 				</div>
@@ -83,7 +83,6 @@ body {
 		//left tree
 		var tree = mini.get("leftTree");
 		
-
         function onBeforeOpen(e) {
             currentTab = tabs.getTabByEvent(e.htmlEvent);
             if (!currentTab) {

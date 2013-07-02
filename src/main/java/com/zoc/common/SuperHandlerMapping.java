@@ -45,6 +45,7 @@ public class SuperHandlerMapping extends RequestMappingHandlerMapping {
 
 		Iterator<Entry<RequestMappingInfo, HandlerMethod>> iter = getHandlerMethods().entrySet().iterator();
 		
+		permissionService.deleteAll();
 		
 		while(iter.hasNext()){
 			Map.Entry entry = iter.next();

@@ -9,13 +9,15 @@
 package com.zoc.entity.security;
 
 import java.io.Serializable;
+import java.util.List;
+
 import com.zoc.common.entity.AjaxEntity;
 
 /**
  * @author Administrator
  *
  */
-public class User  extends AjaxEntity implements Serializable{
+public class User  extends AjaxEntity{
 
 	/**
 	 * 
@@ -37,6 +39,9 @@ public class User  extends AjaxEntity implements Serializable{
 	private String location;
 	
 	private String home_branch;
+	
+	private List<UserRole> roles;
+	
 	
 	
 
@@ -145,6 +150,15 @@ public class User  extends AjaxEntity implements Serializable{
 	public void setHome_branch(String home_branch) {
 		this.home_branch = home_branch;
 	}
+
+	public List<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<UserRole> roles) {
+		this.roles = roles;
+	}
+	
 	
 	
 	

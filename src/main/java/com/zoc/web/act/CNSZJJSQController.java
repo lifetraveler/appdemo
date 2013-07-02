@@ -27,7 +27,7 @@ public class CNSZJJSQController extends ActController<CNSZJJSQ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CNSZJJSQController.class);
 
-	private static final String DEFAULT_PAGE = "act/CNSZJJSQ";
+	private static final String DEFAULT_PAGE = "act/CN";
 
 	private static final String CONTROLLER_ID = "CNSZJJSQ";
 
@@ -36,8 +36,10 @@ public class CNSZJJSQController extends ActController<CNSZJJSQ> {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
-		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
-		model.addAttribute("year", "2011");
+		model.addAttribute("LOCATION", SuperUtils.getSubjectUser().getLocation());
+		model.addAttribute("MENUID", "CNSZJJSQ");
+		model.addAttribute("UNIT", 0);
+		model.addAttribute("TITLE", "年末参保职工人均缴费基数情况");
 		return DEFAULT_PAGE;
 	}
 
@@ -52,8 +54,13 @@ public class CNSZJJSQController extends ActController<CNSZJJSQ> {
 	public @ResponseBody
 	String save(@RequestParam("data") String data) {
 		logger.debug(data);
+		try{
 		CNSZJJSQService.batchSave(SuperUtils.parseArray(data, CNSZJJSQ.class));
-		return "save success!";
+		return "更新成功";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "更新失败";
+		}
 	}
 
 	@RequestMapping(value = "/upload", method = { RequestMethod.POST })

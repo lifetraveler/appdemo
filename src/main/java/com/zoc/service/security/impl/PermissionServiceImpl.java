@@ -44,6 +44,13 @@ public class PermissionServiceImpl extends SuperServiceImpl<Permission,Long> imp
 	public List<Permission> listPermissionByRoleIdMenuId(String menu_id, String role_id) {
 		return permissionDao.listPermissionByRoleIdMenuId(menu_id, role_id);
 	}
+
+	@Override
+	public void deleteAll() {
+		permissionDao.deleteAll();
+	}
+	
+	
 	
 	
 
