@@ -21,7 +21,7 @@
 		from ACT_CNNSDDYQ
 		<where>
 			<if test="location != '100000'">
-				location = #{location}
+				location =  #{location}
 			</if>
 		</where>
 		group by c1,location,year
