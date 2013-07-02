@@ -126,17 +126,14 @@
 			var sum_row = grid.getRow(0);
 			
 			if(e.field == 'c2'){
-				e.cellHtml = record.c4 + record.c5 + record.c7 + record.c8;
+				e.cellHtml = Math.round(record.c4 + record.c5 + record.c7 + record.c8);
 				
 			}
 			if(e.field == 'c3'){
-				e.cellHtml = record.c4 + record.c5;
+				e.cellHtml = Math.round(record.c4 + record.c5);
 			}
 			if(e.field == 'c6'){
-				e.cellHtml = record.c7 + record.c8;
-			}
-			if(e.field == 'c7'){
-				
+				e.cellHtml = Math.round(record.c7 + record.c8);
 			}
 			
 		});

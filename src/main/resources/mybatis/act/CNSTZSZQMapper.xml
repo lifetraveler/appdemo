@@ -6,13 +6,13 @@
 	
 	<select id="list" resultType="CNSTZSZQ" parameterType="CNSTZSZQ">
 		 select c1,year,
-			avg(nvl(c2,0)) c2,
-			avg(nvl(c3,0)) c3,
-			avg(nvl(c4,0)) c4,
-			avg(nvl(c5,0)) c5,
-			avg(nvl(c6,0)) c6,
-			avg(nvl(c7,0)) c7,
-			avg(nvl(c8,0)) c8
+			round(avg(nvl(c2,0)),2) c2,
+			round(avg(nvl(c3,0)),2) c3,
+			round(avg(nvl(c4,0)),2) c4,
+			round(avg(nvl(c5,0)),2) c5,
+			round(avg(nvl(c6,0)),2) c6,
+			round(avg(nvl(c7,0)),2) c7,
+			round(avg(nvl(c8,0)),2) c8
 		 from ACT_CNSTZSZQ
 		<where>
 			<if test="location != '100000'">
