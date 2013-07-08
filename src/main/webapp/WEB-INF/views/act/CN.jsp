@@ -12,7 +12,38 @@
 </head>
 <body>
 	<h1>${TITLE}</h1>
-	<div style="width:1100px;overflow:auto;">
+	<fieldset id="fd_search" style="width:800px;margin: 10px;">
+        <legend><label><input type="checkbox" checked id="checkbox1" onclick="toggleFieldSet(this, 'fd_search')" hideFocus/>查询条件</label></legend>
+        <div class="fieldset-body">
+            <table class="form-table" border="0" cellpadding="1" cellspacing="2">
+                <tr>
+                    <td class="form-label" style="width:60px;">数据年限：</td>
+                    <td style="width:700px">
+                        <div id="cbl1" class="mini-checkboxlist" repeatItems="3" 
+       					 textField="text" valueField="id" value="2011"  url="countrys.txt" >
+    					</div>
+                    </td>
+                </tr> 
+                <tr>
+                	<td class="form-label" style="width:60px;">地区划分</td>
+                    <td style="width:700px">
+                        <div id="cbl2" class="mini-checkboxlist" repeatItems="3" 
+       					 textField="code_value" valueField="code_type" value="100000"  url="<%=basePath%>/standardcode/location" >
+    					</div>
+                    </td>
+                </tr>  
+                <tr>
+                	<td>
+                	<a class="mini-button" iconCls="icon-search" onclick="search()" >查询</a> 
+                	</td>
+                	<td>
+                	<a class="mini-button" iconCls="icon-undo" onclick="reset()" >重置</a> 
+                	</td>
+                </tr>            
+            </table>
+        </div>
+    </fieldset>   
+	<div style="width:900px;overflow:auto;">
         <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
             <table style="width:100%;">
                 <tr>
@@ -32,11 +63,8 @@
             </table>           
         </div>
     </div>
-	<div id="datagrid1" class="mini-datagrid" style="width:1100px;height:400px" allowCellEdit="true" allowCellSelect="true" multiSelect="true" showFooter="false" 
-	url="<%=basePath%>/${MENUID}/list">
+	<div id="datagrid1" class="mini-datagrid" style="width:900px;height:300px" allowCellEdit="true" allowCellSelect="true" multiSelect="true" showPager="false" url="<%=basePath%>/${MENUID}/list">
 		<div property="columns">
-			<div field="location" width='0'>${LOCATION}</div>
-			<div field="year" width='0'>2011</div>
 			<div type="indexcolumn"></div> 
 			<div field="c1" width="100" headerAlign="center">年龄
 				<input property="editor" class="mini-textbox" style="width:100%;" />
@@ -107,14 +135,14 @@
 	<script type="text/javascript">
 	 	mini.parse();
 		var grid = mini.get("datagrid1");
+		var cbl2 = mini.get("cbl2");
 	    grid.load();
 	    
 		//////////////////////////////////////////////////////
 		
-		
 	
 		grid.on("cellbeginedit",function(e){
-			if(e.row.c1 == '合计' || e.column.field == 'c3' || e.column.field == 'c6' ){
+			if(e.row.c1 == '合计' || e.column.field == 'c1' || e.column.field == 'c2' || e.column.field == 'c3' || e.column.field == 'c6' ){
 				e.cancel = true;
 			}
 			
@@ -153,9 +181,24 @@
 		});
 
         function search() {       
-            var key = mini.get("key").getValue();
-            grid.load({ c1 : key });
+            var obj = {};
+            if("" != mini.get("cbl1").getValue()){
+            	obj.yearSection = mini.get("cbl1").getValue();
+            }
+            var locationSection = mini.get("cbl2").getValue();
+            if("" != locationSection && locationSection.indexOf("100000") < 0){
+            	obj.locationSection = mini.get("cbl2").getValue();
+            }
+            var json = mini.encode(obj);
+            grid.load({ key: json });
         }
+        
+        function reset(){
+        	mini.get("cbl1").setValue();
+        	mini.get("cbl2").setValue();
+        }
+        
+        
         function onKeyEnter(e) {
             search();
         }
@@ -213,6 +256,10 @@
         		}
         	} );
             
+        }
+        function toggleFieldSet(ck, id) {
+            var dom = document.getElementById(id);
+            dom.className = !ck.checked ? "hideFieldset" : "";
         }
 	</script>
 </body>

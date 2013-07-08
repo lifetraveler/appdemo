@@ -73,10 +73,7 @@ public class MainController {
 			@RequestParam(value = "role_id", required = true) String role_id) {
 		return permissionService.listPermissionByRoleIdMenuId(menu_id, role_id);
 	}
+	
 
-	@RequestMapping(value = "/YQNRKYCQ", method = { RequestMethod.GET })
-	public String sss() {
-		return "/act/YQNRKYCQ";
-	}
 
 }

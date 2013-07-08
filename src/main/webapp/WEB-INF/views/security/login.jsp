@@ -134,12 +134,15 @@ $(function(){
 							style="width: 150px;" onenter="onLoginClick" value="admin" /> 
 					</tr>
 					<tr>
-					<td></td>
-					<td style="padding-top: 5px;"><a onclick="onLoginClick"
-						class="mini-button" style="width: 60px;">登录</a> <a
-						onclick="onResetClick" class="mini-button" style="width: 60px;">重置</a>
-					</td>
-				</tr>
+						<td></td>
+						<td style="padding-top: 5px;"><a onclick="onLoginClick"
+							class="mini-button" style="width: 60px;">登录</a> <a
+							onclick="onResetClick" class="mini-button" style="width: 60px;">重置</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">${error }</td>
+					</tr>
 				</table>
 			</form>
 		</div>

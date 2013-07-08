@@ -27,7 +27,7 @@ public class CNNSDYCQController extends ActController<CNNSDYCQ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CNNSDYCQController.class);
 
-	private static final String DEFAULT_PAGE = "act/CNNSDYCQ";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CNNSDYCQ";
 

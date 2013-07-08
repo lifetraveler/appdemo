@@ -26,6 +26,7 @@ public abstract class SuperUtils {
 	
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
+	public static final String GBL_LOCATION = "100000";
 
 	public static final <T> List<T> parseArray(String text, Class<T> clazz) {
 		return JSON.parseArray(text.replace("_state", "state").replace("_uid", "uid").replace("_index", "index"), clazz);

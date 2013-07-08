@@ -17,7 +17,26 @@ public class BaseActEntity extends AjaxEntity {
 	
 	private String c1; 
 	
+	public String yearSection;
 	
+	public String locationSection;
+	
+
+	public String getLocationSection() {
+		return locationSection;
+	}
+
+	public void setLocationSection(String locationSection) {
+		this.locationSection = locationSection;
+	}
+
+	public String getYearSection() {
+		return yearSection;
+	}
+
+	public void setYearSection(String yearSection) {
+		this.yearSection = yearSection;
+	}
 
 	public String getC1() {
 		return c1;

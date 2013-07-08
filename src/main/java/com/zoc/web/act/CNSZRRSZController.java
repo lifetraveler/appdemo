@@ -45,8 +45,14 @@ public class CNSZRRSZController extends ActController<CNSZRRSZ> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CNSZRRSZ> list(Model model, CNSZRRSZ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
+	List<CNSZRRSZ> list(Model model, CNSZRRSZ entity, @RequestParam(value = "key", required = false) String key) {
+		if (!SuperUtils.isNullOrEmpty(key)) {
+			entity = SuperUtils.parseObject(key, CNSZRRSZ.class);
+		}
+		if (SuperUtils.isNullOrEmpty(entity.getLocationSection())
+				&& !SuperUtils.GBL_LOCATION.equals(SuperUtils.getSubjectUser().getLocation())) {
+			entity.setLocation(SuperUtils.getSubjectUser().getLocation());
+		}
 		return CNSZRRSZService.list(entity);
 	}
 
@@ -54,10 +60,10 @@ public class CNSZRRSZController extends ActController<CNSZRRSZ> {
 	public @ResponseBody
 	String save(@RequestParam("data") String data) {
 		logger.debug(data);
-		try{
-		CNSZRRSZService.batchSave(SuperUtils.parseArray(data, CNSZRRSZ.class));
-		return "更新成功";
-		}catch(Exception e){
+		try {
+			CNSZRRSZService.batchSave(SuperUtils.parseArray(data, CNSZRRSZ.class));
+			return "更新成功";
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "更新失败";
 		}

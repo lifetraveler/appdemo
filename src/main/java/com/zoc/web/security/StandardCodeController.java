@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zoc.service.security.StandardCodeService;
+import com.zoc.common.SuperUtils;
 import com.zoc.common.page.SuperPage;
 import com.zoc.entity.security.StandardCode;
+import com.zoc.entity.security.User;
 
 /**
  * @author Super
@@ -48,6 +50,22 @@ public class StandardCodeController {
 	List<StandardCode> list(SuperPage<StandardCode> page,
 			@RequestParam(value = "code_name", required = false) String code_name) {
 		return standardcodeService.list(new StandardCode(code_name));
+	}
+
+	@RequestMapping(value = "/location", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<StandardCode>  location() {
+		User user = SuperUtils.getSubjectUser();
+		StandardCode sc = new StandardCode();
+		sc.setCode_name("location");
+		List<StandardCode> list = null;
+		if("100000".equals(user.getLocation())){
+			list = standardcodeService.list(sc);
+		}else{
+			sc.setCode_type(user.getLocation());
+			list = standardcodeService.list(sc);
+		}
+		
+		return list;
 	}
 
 }
