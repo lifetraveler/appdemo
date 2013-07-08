@@ -27,7 +27,7 @@ public class CNSZRRSZController extends ActController<CNSZRRSZ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CNSZRRSZController.class);
 
-	private static final String DEFAULT_PAGE = "act/CN";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CNSZRRSZ";
 
@@ -46,14 +46,7 @@ public class CNSZRRSZController extends ActController<CNSZRRSZ> {
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
 	List<CNSZRRSZ> list(Model model, CNSZRRSZ entity, @RequestParam(value = "key", required = false) String key) {
-		if (!SuperUtils.isNullOrEmpty(key)) {
-			entity = SuperUtils.parseObject(key, CNSZRRSZ.class);
-		}
-		if (SuperUtils.isNullOrEmpty(entity.getLocationSection())
-				&& !SuperUtils.GBL_LOCATION.equals(SuperUtils.getSubjectUser().getLocation())) {
-			entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		}
-		return CNSZRRSZService.list(entity);
+		return CNSZRRSZService.list(abstractList(entity, key, CNSZRRSZ.class));
 	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })

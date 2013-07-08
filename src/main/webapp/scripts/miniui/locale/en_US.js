@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery MiniUI v2.0
+* jQuery MiniUI v3.0
 * 
 * Web Site : http://www.miniui.com
 *
@@ -70,18 +70,23 @@ if (mini.Calendar) {
 }
 
 
-/* required
+/* required | loadingMsg
 -----------------------------------------------------------------------------*/
 for (var id in mini) {
     var clazz = mini[id];
     if (clazz && clazz.prototype && clazz.prototype.isControl) {
-        clazz.prototype.requiredErrorText = "This field is required.";
+        clazz.prototype.requiredErrorText = "不能为空";
+        clazz.prototype.loadingMsg = "Loading...";
     }
+
 }
 
 /* VTypes
 -----------------------------------------------------------------------------*/
 mini.copyTo(mini.VTypes, {
+    minDateErrorText: 'Date can not be less than {0}',
+    maxDateErrorText: 'Date can not be greater than {0}',
+
     uniqueErrorText: "This field is unique.",
     requiredErrorText: "This field is required.",
     emailErrorText: "Please enter a valid email address.",

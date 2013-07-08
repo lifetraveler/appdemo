@@ -7,6 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.zoc.common.SuperUtils;
 import com.zoc.common.entity.AjaxEntity;
 import com.zoc.common.page.SuperPage;
 

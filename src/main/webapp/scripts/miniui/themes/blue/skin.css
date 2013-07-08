@@ -493,7 +493,7 @@ body .mini-buttonedit-focus .mini-buttonedit-border
     
 /*---------------------- tabs -----------------------------*/
 
-.mini-tabs-headers
+.mini-tabs-scrollCt
 {
     border-color:#8CB2E2;
     background:#f0f0f0 url(images/toolbar/toolbar.gif) repeat-x 0 0;

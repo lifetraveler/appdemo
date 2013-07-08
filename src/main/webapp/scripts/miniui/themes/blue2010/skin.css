@@ -471,7 +471,7 @@ a:hover.mini-calendar-menu-year
 
 /*---------------------- tabs -----------------------------*/
 
-.mini-tabs-headers
+.mini-tabs-scrollCt
 {
     border-color:#859ebf;
     background:#dae5f3 url(images/toolbar/header.gif) repeat-x 0 0;

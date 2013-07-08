@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
 import com.zoc.entity.act.CNNSDDYQ;
+import com.zoc.entity.act.CNSZRRSZ;
 import com.zoc.service.act.CNNSDDYQService;
 
 /**
@@ -37,7 +38,7 @@ public class CNNSDDYQController extends ActController<CNNSDDYQ> {
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
-		model.addAttribute("year", 2011);
+		model.addAttribute("year", SuperUtils.DEFAULT_YEAR);
 		model.addAttribute("MENUID", "CNNSDDYQ");
 		model.addAttribute("UNIT", 0);
 		model.addAttribute("TITLE", "分地区基本养老保险情况综合表(大口径)");
@@ -46,9 +47,8 @@ public class CNNSDDYQController extends ActController<CNNSDDYQ> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CNNSDDYQ> list(Model model, CNNSDDYQ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CNNSDDYQService.list(entity);
+	List<CNNSDDYQ> list(Model model, CNNSDDYQ entity, @RequestParam(value = "key", required = false) String key) {
+		return CNNSDDYQService.list(abstractList(entity, key, CNNSDDYQ.class));
 	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })

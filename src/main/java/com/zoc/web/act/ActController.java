@@ -18,6 +18,7 @@ import com.zoc.common.poi.ExportExcel;
 import com.zoc.common.poi.ImportExcel;
 import com.zoc.common.service.SuperService;
 import com.zoc.entity.act.BaseActEntity;
+import com.zoc.entity.act.CNSZRRSZ;
 import com.zoc.entity.act.UploadParam;
 import com.zoc.service.act.UploadParamService;
 
@@ -25,6 +26,18 @@ public abstract class ActController<T extends BaseActEntity> {
 
 	@Autowired
 	private UploadParamService uploadParamService;
+	
+	public T abstractList(T entity,String data,Class<T> classzz){
+		if (!SuperUtils.isNullOrEmpty(data)) {
+			entity = SuperUtils.parseObject(data, classzz);
+		}
+		if (SuperUtils.isNullOrEmpty(entity.getLocationSection())
+				&& !SuperUtils.GBL_LOCATION.equals(SuperUtils.getSubjectUser().getLocation())) {
+			entity.setLocation(SuperUtils.getSubjectUser().getLocation());
+		}
+		return entity;
+		
+	}
 
 	public String abstractUpload(MultipartHttpServletRequest request, String controller_id, Class<T> classzz,
 			SuperService<T, Long> superService) {
@@ -67,6 +80,12 @@ public abstract class ActController<T extends BaseActEntity> {
 							}
 						}
 					}
+				}
+			}
+			for (T t : lists) {
+				t.setYear(Integer.valueOf(request.getParameter("year")));
+				if(SuperUtils.isNullOrEmpty(t.getLocation())){
+					t.setLocation(SuperUtils.getSubjectUser().getLocation());
 				}
 			}
 			superService.upload(lists);

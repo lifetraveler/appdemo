@@ -439,7 +439,7 @@ a:hover.mini-calendar-menu-year
 }
 
 /*---------------------- tabs -----------------------------*/
-.mini-tabs-headers
+.mini-tabs-scrollCt
 {
     border-color:#758d5e;
     background:#f2f0e4 url(images/toolbar/header.gif) repeat-y 0 0;
