@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.CNNSQZCBDao">
+
+	<select id="list" resultType="CNNSQZCB" parameterType="CNNSQZCB">
+		select c1,location,year,
+		sum(nvl(c2,0)) c2
+		from ACT_CNNSQZCB
+		<where>
+			<if test="location != null">
+				location = #{location}
+			</if>
+			<if test="yearSection != null">
+				and year in (${yearSection})
+			</if>
+			<if test="locationSection != null">
+				and location in (${locationSection})
+			</if>
+		</where>
+		group by c1,location,year
+		order by c0
+	</select>
+
+	<insert id="insert" parameterType="CNNSQZCB">
+		insert into ACT_CNNSQZCB values
+		(#{c1},#{c2},#{location},#{year},#{c0})
+	</insert>
+
+	<update id="update" parameterType="CNNSQZCB">
+		update ACT_CNNSQZCB set c1 = #{c1},
+		c2 = #{c2}
+		where location =
+		#{location}
+		and
+		year = #{year}
+	</update>
+
+	<delete id="delete" parameterType="CNNSQZCB">
+		delete from ACT_CNNSQZCB
+		<where>
+			<if test="location != null">
+				and location = #{location}
+			</if>
+			<if test="year != null">
+				and year = #{year}
+			</if>
+		</where>
+	</delete>
+
+</mapper> 

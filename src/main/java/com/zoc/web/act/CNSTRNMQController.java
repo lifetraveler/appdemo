@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDDYQ;
 import com.zoc.entity.act.CNSTRNMQ;
 import com.zoc.service.act.CNSTRNMQService;
 
@@ -27,7 +28,7 @@ public class CNSTRNMQController extends ActController<CNSTRNMQ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CNSTRNMQController.class);
 
-	private static final String DEFAULT_PAGE = "act/CN";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CNSTRNMQ";
 
@@ -45,9 +46,8 @@ public class CNSTRNMQController extends ActController<CNSTRNMQ> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CNSTRNMQ> list(Model model, CNSTRNMQ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CNSTRNMQService.list(entity);
+	List<CNSTRNMQ> list(Model model, CNSTRNMQ entity, @RequestParam(value = "key", required = false) String key) {
+		return CNSTRNMQService.list(abstractList(entity, key, CNSTRNMQ.class));
 	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })
@@ -68,8 +68,7 @@ public class CNSTRNMQController extends ActController<CNSTRNMQ> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CNSTRNMQ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CNSTRNMQService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CNSTRNMQService.list(abstractList(entity, null, CNSTRNMQ.class)), CONTROLLER_ID);
 	}
 
 }

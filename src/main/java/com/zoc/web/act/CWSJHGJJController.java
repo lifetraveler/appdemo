@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDDYQ;
 import com.zoc.entity.act.CWSJHGJJ;
 import com.zoc.service.act.CWSJHGJJService;
 
@@ -27,7 +28,7 @@ public class CWSJHGJJController extends ActController<CWSJHGJJ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CWSJHGJJController.class);
 
-	private static final String DEFAULT_PAGE = "act/CWSJHGJJ";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CWSJHGJJ";
 
@@ -37,14 +38,17 @@ public class CWSJHGJJController extends ActController<CWSJHGJJ> {
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
+		model.addAttribute("year", SuperUtils.DEFAULT_YEAR);
+		model.addAttribute("MENUID", "CWSJHGJJ");
+		model.addAttribute("UNIT", 0);
+		model.addAttribute("TITLE", "宏观决策");
 		return DEFAULT_PAGE;
 	}
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CWSJHGJJ> list(Model model, CWSJHGJJ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CWSJHGJJService.list(entity);
+	List<CWSJHGJJ> list(Model model, CWSJHGJJ entity, @RequestParam(value = "key", required = false) String key) {
+		return CWSJHGJJService.list(abstractList(entity, key, CWSJHGJJ.class));
 	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })
@@ -65,8 +69,7 @@ public class CWSJHGJJController extends ActController<CWSJHGJJ> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CWSJHGJJ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CWSJHGJJService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CWSJHGJJService.list(abstractList(entity, null, CWSJHGJJ.class)), CONTROLLER_ID);
 	}
 
 }

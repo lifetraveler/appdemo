@@ -69,8 +69,7 @@ public class CNNSDDYQController extends ActController<CNNSDDYQ> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CNNSDDYQ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CNNSDDYQService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CNNSDDYQService.list(abstractList(entity, null, CNNSDDYQ.class)), CONTROLLER_ID);
 	}
 
 }

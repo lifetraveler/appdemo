@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDDYQ;
 import com.zoc.entity.act.CNSTYYGP;
 import com.zoc.service.act.CNSTYYGPService;
 
@@ -27,7 +28,7 @@ public class CNSTYYGPController extends ActController<CNSTYYGP> {
 
 	private static Logger logger = LoggerFactory.getLogger(CNSTYYGPController.class);
 
-	private static final String DEFAULT_PAGE = "act/CN";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CNSTYYGP";
 
@@ -45,11 +46,10 @@ public class CNSTYYGPController extends ActController<CNSTYYGP> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CNSTYYGP> list(Model model, CNSTYYGP entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CNSTYYGPService.list(entity);
+	List<CNSTYYGP> list(Model model, CNSTYYGP entity, @RequestParam(value = "key", required = false) String key) {
+		return CNSTYYGPService.list(abstractList(entity, key, CNSTYYGP.class));
 	}
-
+	
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })
 	public @ResponseBody
 	String save(@RequestParam("data") String data) {
@@ -68,8 +68,7 @@ public class CNSTYYGPController extends ActController<CNSTYYGP> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CNSTYYGP entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CNSTYYGPService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CNSTYYGPService.list(abstractList(entity, null, CNSTYYGP.class)), CONTROLLER_ID);
 	}
 
 }

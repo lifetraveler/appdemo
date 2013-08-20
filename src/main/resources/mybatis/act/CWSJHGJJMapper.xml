@@ -23,8 +23,14 @@
 		sum(nvl(c15,0)) c15
 		from ACT_CWSJHGJJ
 		<where>
-			<if test="location != '100000'">
+			<if test="location != null">
 				location = #{location}
+			</if>
+			<if test="yearSection != null">
+				and year in (${yearSection})
+			</if>
+			<if test="locationSection != null">
+				and location in (${locationSection})
 			</if>
 		</where>
 		group by year,location

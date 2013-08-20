@@ -35,6 +35,48 @@ import com.zoc.entity.act.UploadParam;
  */
 public class ExportExcel<T> {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 格式化日期
+	
+	public void batchExport(UploadParam up, Collection<T> dataset, OutputStream out,HSSFWorkbook workbook) throws Exception{
+		// 首先检查数据看是否是正确的
+					Iterator<T> its = dataset.iterator();
+					// 取得实际泛型类
+					T ts = its.next();
+					Class tCls = ts.getClass();
+
+					HSSFSheet sheet = workbook.getSheet(up.getSheet_name());
+					
+					// 得到所有字段
+					Field filed[] = ts.getClass().getDeclaredFields();
+					// 导出的字段的get方法
+					List<ExcelMap> maps = new ArrayList<ExcelMap>();
+
+					// 遍历整个filed
+					for (int i = 0; i < filed.length; i++) {
+						Field f = filed[i];
+						ExcelAnnotation exa = f.getAnnotation(ExcelAnnotation.class);
+						// 如果设置了annottion
+						if (exa != null) {
+							// 添加到需要导出的字段的方法
+							String fieldname = f.getName();
+							String methodName = "get" + fieldname.substring(0, 1).toUpperCase() + fieldname.substring(1);
+							Method getMethod = tCls.getMethod(methodName, new Class[] {});
+							ExcelMap map = new ExcelMap(exa.cellIndex(), getMethod, f.getType());
+							maps.add(map);
+						}
+					}
+					int index = up.getRow_start();
+					HSSFRow row;
+					for (T t : dataset) {
+						row = sheet.createRow(index);
+						for (ExcelMap map : maps) {
+							HSSFCell cell = row.createCell(map.getIndex());
+							Object value = map.getMethod().invoke(t, new Object[] {});
+							String textValue = getValue(value);
+							cell.setCellValue(textValue);
+						}
+						index++;
+					}
+	}
 
 	public void exportExcel(UploadParam up, Collection<T> dataset, OutputStream out) throws Exception {
 			// 首先检查数据看是否是正确的
@@ -47,7 +89,7 @@ public class ExportExcel<T> {
 			InputStream in = Files.findFileAsStream(up.getTemplate_path() + up.getWork_book());
 			HSSFWorkbook workbook = new HSSFWorkbook(in);
 			HSSFSheet sheet = workbook.getSheet(up.getSheet_name());
-
+			
 			// 得到所有字段
 			Field filed[] = ts.getClass().getDeclaredFields();
 			// 导出的字段的get方法

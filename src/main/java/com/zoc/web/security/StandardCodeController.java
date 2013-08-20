@@ -58,7 +58,7 @@ public class StandardCodeController {
 		StandardCode sc = new StandardCode();
 		sc.setCode_name("location");
 		List<StandardCode> list = null;
-		if("100000".equals(user.getLocation())){
+		if(SuperUtils.GBL_LOCATION.equals(user.getLocation())){
 			list = standardcodeService.list(sc);
 		}else{
 			sc.setCode_type(user.getLocation());

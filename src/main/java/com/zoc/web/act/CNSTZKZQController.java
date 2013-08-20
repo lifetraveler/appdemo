@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDDYQ;
 import com.zoc.entity.act.CNSTZKZQ;
 import com.zoc.service.act.CNSTZKZQService;
 
@@ -27,7 +28,7 @@ public class CNSTZKZQController extends ActController<CNSTZKZQ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CNSTZKZQController.class);
 
-	private static final String DEFAULT_PAGE = "act/CN";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CNSTZKZQ";
 
@@ -45,9 +46,8 @@ public class CNSTZKZQController extends ActController<CNSTZKZQ> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CNSTZKZQ> list(Model model, CNSTZKZQ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CNSTZKZQService.list(entity);
+	List<CNSTZKZQ> list(Model model, CNSTZKZQ entity, @RequestParam(value = "key", required = false) String key) {
+		return CNSTZKZQService.list(abstractList(entity, key, CNSTZKZQ.class));
 	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })
@@ -68,8 +68,7 @@ public class CNSTZKZQController extends ActController<CNSTZKZQ> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CNSTZKZQ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CNSTZKZQService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CNSTZKZQService.list(abstractList(entity, null, CNSTZKZQ.class)), CONTROLLER_ID);
 	}
 
 }

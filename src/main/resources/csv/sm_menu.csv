@@ -94,7 +94,6 @@ YZJFJFNX,缴费年限,inBasicData,7,/YZJFJFNX
 YZGRGRZH,个人账户,inBasicData,8,/YZGRGRZH
 YZTXTXYL,退休人员养老金,inBasicData,9,/YZTXTXYL
 YZYTYTRY,一次性退休人员,inBasicData,10,/YZYTYTRY
-actModel,精算模型,,3,
-report,精算报告,,4,
-ylbx,养老保险,report,1,
-YQNRKYCQ,预期内人口预测情况,ylbx,1,/YQNRKYCQ
+batch,批量操作,,1,
+batchInput,批量导入,batch,1,/batch/input
+batchOutput,批量导出,batch,2,/batch/output

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.zoc.repository.act.CNNSDYSQDao">
+
+	<select id="list" resultType="CNNSDYSQ" parameterType="CNNSDYSQ">
+		select c1,location,year,
+		sum(nvl(c2,0)) c2,
+		sum(nvl(c3,0)) c3,
+		sum(nvl(c4,0)) c4,
+		sum(nvl(c5,0)) c5,
+		sum(nvl(c6,0)) c6,
+		sum(nvl(c7,0)) c7,
+		avg(nvl(c8,0)) c8,
+		avg(nvl(c9,0)) c9,
+		avg(nvl(c10,0)) c10,
+		sum(nvl(c11,0)) c11,
+		sum(nvl(c12,0)) c12,
+		sum(nvl(c13,0)) c13,
+		sum(nvl(c14,0)) c14,
+		sum(nvl(c15,0)) c15,
+		sum(nvl(c16,0)) c16,
+		sum(nvl(c17,0)) c17,
+		sum(nvl(c18,0)) c18,
+		sum(nvl(c19,0)) c19,
+		avg(nvl(c20,0)) c20,
+		avg(nvl(c21,0)) c21,
+		avg(nvl(c22,0)) c22,
+		sum(nvl(c23,0)) c23,
+		sum(nvl(c24,0)) c24,
+		sum(nvl(c25,0)) c25
+		from ACT_CNNSDYSQ
+		<where>
+			<if test="location != null">
+				location = #{location}
+			</if>
+			<if test="yearSection != null">
+				and year in (${yearSection})
+			</if>
+			<if test="locationSection != null">
+				and location in (${locationSection})
+			</if>
+		</where>
+		group by c1,location,year
+		order by c0
+	</select>
+
+	<insert id="insert" parameterType="CNNSDYSQ">
+		insert into ACT_CNNSDYSQ values
+		(#{c1},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{c9},#{c10},#{c11},#{c12},#{c13},#{c14},#{c15},#{c16},#{c17},#{c18},#{c19},#{c20},#{c21},#{c22},#{c23},#{c24},#{c25},#{location},#{year},#{c0})
+	</insert>
+
+	<update id="update" parameterType="CNNSDYSQ">
+		update ACT_CNNSDYSQ set c1 = #{c1},
+		c2 = #{c2},c3 = #{c3},c4 = #{c4},c5 = #{c5},c6 = #{c6},c7 = #{c7},
+		c8 = #{c8},c9 = #{c9},c10 = #{c10},c11 = #{c11},c12 = #{c12},
+		c13 = #{c13},c14 = #{c14},c15 = #{c15},c16 = #{c16},c17 = #{c17},
+		c18 = #{c18},c19 = #{c19},c20 = #{c20},c21 = #{c21},c22 = #{c22},c23 = #{c23},
+		c24 = #{c24},c25 = #{c25}
+		where location = #{location}
+		and year = #{year}
+	</update>
+
+	<delete id="delete" parameterType="CNNSDYSQ">
+		delete from ACT_CNNSDYSQ
+		<where>
+			<if test="location != null">
+				and location = #{location}
+			</if>
+			<if test="year != null">
+				and year = #{year}
+			</if>
+		</where>
+	</delete>
+
+</mapper> 

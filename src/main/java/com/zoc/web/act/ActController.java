@@ -27,7 +27,7 @@ public abstract class ActController<T extends BaseActEntity> {
 	@Autowired
 	private UploadParamService uploadParamService;
 	
-	public T abstractList(T entity,String data,Class<T> classzz){
+	public  T abstractList(T entity,String data,Class<T> classzz){
 		if (!SuperUtils.isNullOrEmpty(data)) {
 			entity = SuperUtils.parseObject(data, classzz);
 		}

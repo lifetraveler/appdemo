@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDDYQ;
 import com.zoc.entity.act.CWSJSRGZ;
 import com.zoc.service.act.CWSJSRGZService;
 
@@ -27,7 +28,7 @@ public class CWSJSRGZController extends ActController<CWSJSRGZ> {
 
 	private static Logger logger = LoggerFactory.getLogger(CWSJSRGZController.class);
 
-	private static final String DEFAULT_PAGE = "act/CWSJSRGZ";
+	private static final String DEFAULT_PAGE = "act/ACT";
 
 	private static final String CONTROLLER_ID = "CWSJSRGZ";
 
@@ -37,16 +38,18 @@ public class CWSJSRGZController extends ActController<CWSJSRGZ> {
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
+		model.addAttribute("year", SuperUtils.DEFAULT_YEAR);
+		model.addAttribute("MENUID", "CWSJSRGZ");
+		model.addAttribute("UNIT", 0);
+		model.addAttribute("TITLE", "收入和工资");
 		return DEFAULT_PAGE;
 	}
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CWSJSRGZ> list(Model model, CWSJSRGZ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CWSJSRGZService.list(entity);
+	List<CWSJSRGZ> list(Model model, CWSJSRGZ entity, @RequestParam(value = "key", required = false) String key) {
+		return CWSJSRGZService.list(abstractList(entity, key, CWSJSRGZ.class));
 	}
-
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })
 	public @ResponseBody
 	String save(@RequestParam("data") String data) {
@@ -65,8 +68,7 @@ public class CWSJSRGZController extends ActController<CWSJSRGZ> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CWSJSRGZ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CWSJSRGZService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CWSJSRGZService.list(abstractList(entity, null, CWSJSRGZ.class)), CONTROLLER_ID);
 	}
 
 }

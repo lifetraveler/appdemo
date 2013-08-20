@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDJYQ;
+import com.zoc.entity.act.CNNSDQQY;
 import com.zoc.entity.act.CNNSDQQY;
 import com.zoc.service.act.CNNSDQQYService;
 
@@ -46,9 +48,8 @@ public class CNNSDQQYController extends ActController<CNNSDQQY> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody
-	List<CNNSDQQY> list(Model model, CNNSDQQY entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		return CNNSDQQYService.list(entity);
+	List<CNNSDQQY> list(Model model, CNNSDQQY entity, @RequestParam(value = "key", required = false) String key) {
+		return CNNSDQQYService.list(abstractList(entity, key, CNNSDQQY.class));
 	}
 
 	@RequestMapping(value = "/save", method = { RequestMethod.POST })
@@ -69,8 +70,7 @@ public class CNNSDQQYController extends ActController<CNNSDQQY> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CNNSDQQY entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CNNSDQQYService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CNNSDQQYService.list(abstractList(entity, null, CNNSDQQY.class)), CONTROLLER_ID);
 	}
 
 }

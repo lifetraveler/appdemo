@@ -12,8 +12,14 @@
 		avg(nvl(c5,0)) c5
 		from ACT_CNNSDYCN
 		<where>
-			<if test="location != '100000'">
+			<if test="location != null">
 				location = #{location}
+			</if>
+			<if test="yearSection != null">
+				and year in (${yearSection})
+			</if>
+			<if test="locationSection != null">
+				and location in (${locationSection})
 			</if>
 		</where>
 		group by c1,location,year

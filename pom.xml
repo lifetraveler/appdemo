@@ -44,46 +44,19 @@
 	</properties>
 
 	<repositories>
-		<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. <repository> <id>nexus</id> <name>Team 
-			Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> 
-			</repository> -->
-		<repository>
-			<id>central</id>
-			<name>Central Repository</name>
-			<url>http://repo.maven.apache.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-
-		<repository>
-			<id>opensesame</id>
-			<name>Alibaba OpenSource Repsoitory</name>
-			<url>http://code.alibabatech.com/mvn/releases/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-
 		<repository>
 			<id>kafeitu</id>
-			<url>http://maven.kafeitu.me/nexus/content/groups/public</url>
+            <url>http://maven.kafeitu.me/nexus/content/groups/public</url>
 		</repository>
-
 		<repository>
 			<id>Activiti</id>
 			<url>https://maven.alfresco.com/nexus/content/groups/public</url>
 		</repository>
-
 		<repository>
 			<id>Codehaus</id>
 			<url>http://repository.codehaus.org</url>
 		</repository>
 	</repositories>
-
-	<!-- 设定插件仓库 如有Nexus私服, 取消注释并指向正确的服务器地址. <pluginRepositories> <pluginRepository> 
-		<id>nexus</id> <name>Team Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> 
-		<snapshots> <enabled>false</enabled> </snapshots> </pluginRepository> </pluginRepositories> -->
 
 	<!-- 依赖项定义 -->
 	<dependencies>

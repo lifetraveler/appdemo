@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.zoc.common.SuperUtils;
+import com.zoc.entity.act.CNNSDDYQ;
 import com.zoc.entity.act.CNSZRRSZ;
 import com.zoc.service.act.CNSZRRSZService;
 
@@ -72,8 +73,7 @@ public class CNSZRRSZController extends ActController<CNSZRRSZ> {
 	@RequestMapping(value = "/download", method = { RequestMethod.GET })
 	public @ResponseBody
 	void download(HttpServletResponse response, CNSZRRSZ entity) {
-		entity.setLocation(SuperUtils.getSubjectUser().getLocation());
-		abstractDownload(response, CNSZRRSZService.list(entity), CONTROLLER_ID);
+		abstractDownload(response, CNSZRRSZService.list(abstractList(entity, null, CNSZRRSZ.class)), CONTROLLER_ID);
 	}
 
 }

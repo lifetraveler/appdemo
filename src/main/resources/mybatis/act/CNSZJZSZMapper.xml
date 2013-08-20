@@ -15,8 +15,14 @@
 			round(avg(nvl(c8,0)),2) c8
 		 from ACT_CNSZJZSZ
 		<where>
-			<if test="location != '100000'">
+			<if test="location != null">
 				location = #{location}
+			</if>
+			<if test="yearSection != null">
+				and year in (${yearSection})
+			</if>
+			<if test="locationSection != null">
+				and location in (${locationSection})
 			</if>
 		</where>
 		group by c1,year

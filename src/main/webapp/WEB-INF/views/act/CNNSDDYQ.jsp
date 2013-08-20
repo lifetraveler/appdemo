@@ -7,9 +7,8 @@
 	</div>
 	<div header="参保职工人数">
 		<div property="columns">
-			<div field="c2" width="100" headerAlign="center">
-				万人 <input property="editor" class="mini-spinner"
-					allowLimitValue=false decimalPlaces="2" style="width: 100%;" />
+			<div field="c2" width="100" >
+				万人 <input property="editor" class="mini-textbox" style="width: 100%;" />
 			</div>
 		</div>
 	</div>
