@@ -1,6 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page import="java.util.Date"%>
 <%@ include file="../security/include.inc.jsp"%>
+<%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="org.apache.shiro.subject.Subject"%>
+<%@page import="com.zoc.entity.security.User"%>
+<%
+	Subject currentUser = SecurityUtils.getSubject();
+	User user = (User)currentUser.getPrincipal();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,12 +66,16 @@
             <table style="width:100%;">
                 <tr>
                     <td style="width:100%;">
-                        <a class="mini-button" iconCls="icon-add" onclick="addRow()" plain="true">增加</a>
-                        <span class="separator"></span>
-                        <a class="mini-button" iconCls="icon-remove" onclick="removeRow()" plain="true">删除</a>
-                        <span class="separator"></span>
-                        <a class="mini-button" iconCls="icon-save" onclick="saveData()" plain="true">保存</a> 
-                        <span class="separator"></span>
+                    <%
+                    	if(!"100000".equals(user.getLocation())){
+                    		out.print("<a class='mini-button' iconCls='icon-add' onclick='addRow()' plain='true'>增加</a>");
+                    		out.print(" <span class='separator'></span>");
+                    		out.print("<a class='mini-button' iconCls='icon-remove' onclick='removeRow()' plain='true'>删除</a>");
+                    		out.print(" <span class='separator'></span>");
+                    		out.print("<a class='mini-button' iconCls='icon-save' onclick='saveData()' plain='true'>保存</a>");
+                    		out.print(" <span class='separator'></span>");
+                    	}
+                    %>
                         <a class="mini-button" iconCls="icon-download" href="<%=basePath %>/${MENUID}/download" plain="true">EXCEL导出</a>
                     </td>
                 </tr>

@@ -40,7 +40,7 @@ public class CNSZZKZZController extends ActController<CNSZZKZZ> {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
 		model.addAttribute("MENUID", "CNSZZKZZ");
 		model.addAttribute("UNIT", 0);
-		model.addAttribute("TITLE", "表3.14 年末参保职工平均个人帐户空账储存额情况（中人）");
+		model.addAttribute("TITLE", "年末参保职工平均个人帐户空账储存额情况（中人）");
 		return DEFAULT_PAGE;
 	}
 

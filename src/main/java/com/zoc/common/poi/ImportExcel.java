@@ -77,7 +77,7 @@ public class ImportExcel<T> {
 			HSSFSheet sheet = book.getSheet(param.getSheet_name());
 			// 得到第一面的所有行
 			Iterator<Row> rows = sheet.rowIterator();
-			
+
 			FormulaEvaluator evaluator = book.getCreationHelper().createFormulaEvaluator();
 
 			while (rows.hasNext()) {
@@ -108,7 +108,17 @@ public class ImportExcel<T> {
 
 								break;
 							case Cell.CELL_TYPE_STRING:
-								em.getMethod().invoke(obj, cell.getStringCellValue());
+								if ("class java.math.BigDecimal".equals(em.getColType().toString())) {
+									em.getMethod().invoke(obj, new BigDecimal(cell.getStringCellValue()));
+								} else if ("class java.lang.Integer".equals(em.getColType().toString())
+										|| "int".equals(em.getColType().toString())) {
+									em.getMethod().invoke(obj, new Integer(cell.getStringCellValue()));
+								} else if ("class java.lang.Double".equals(em.getColType().toString())) {
+									em.getMethod().invoke(obj, new Double(em.getColType().toString()));
+								} else {
+									em.getMethod().invoke(obj, cell.getStringCellValue());
+								}
+
 								break;
 							}
 						}

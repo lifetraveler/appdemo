@@ -40,7 +40,7 @@ public class CNSTYYPJController extends ActController<CNSTYYPJ> {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
 		model.addAttribute("MENUID", "CNSTYYPJ");
 		model.addAttribute("UNIT", 2);
-		model.addAttribute("TITLE", "表3.20 年退休人员应发月平均养老金水平");
+		model.addAttribute("TITLE", "年退休人员应发月平均养老金水平");
 		return DEFAULT_PAGE;
 	}
 

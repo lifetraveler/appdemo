@@ -10,7 +10,7 @@
 
 	<properties>
 		<!-- 主要依赖库的版本定义 -->
-		<springside.version>4.1.0-SNAPSHOT</springside.version>
+		<springside.version>4.1.1-SNAPSHOT</springside.version>
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<hibernate.version>4.1.8.Final</hibernate.version>
 		<spring-data-jpa.version>1.2.0.RELEASE</spring-data-jpa.version>
@@ -46,7 +46,7 @@
 	<repositories>
 		<repository>
 			<id>kafeitu</id>
-            <url>http://maven.kafeitu.me/nexus/content/groups/public</url>
+			<url>http://maven.kafeitu.me/nexus/content/groups/public</url>
 		</repository>
 		<repository>
 			<id>Activiti</id>
@@ -118,11 +118,6 @@
 			<version>${commons-fileupload.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.9</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -144,19 +139,12 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.7.1</version>
-		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.2.2</version>
-			<scope>runtime</scope>
+			<version>1.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
 			<version>3.3.1</version>
-			<scope>runtime</scope>
 		</dependency>
 		<!-- AOP end -->
 
@@ -247,11 +235,6 @@
 			<artifactId>shiro-ehcache</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.7</version>
-		</dependency>
 		<!-- SECURITY end -->
 
 		<!-- JSR303 BeanValidator -->
@@ -316,11 +299,7 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-		</dependency>
+
 		<!-- GENERAL UTILS end -->
 
 		<!-- h2 -->
@@ -427,9 +406,27 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- TEST end -->
-
-
-
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -675,12 +672,10 @@
 						<artifactId>maven-antrun-plugin</artifactId>
 						<configuration>
 							<target>
-								<property
-									file="src/main/resources/application.development.properties" />
+								<property file="src/main/resources/application.development.properties" />
 								<property file="src/main/resources/application.properties" />
-								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}"
-									password="${jdbc.password}" onerror="continue"
-									encoding="${project.build.sourceEncoding}">
+								<sql driver="${jdbc.driver}" url="${jdbc.url}" userid="${jdbc.username}" password="${jdbc.password}"
+									onerror="continue" encoding="${project.build.sourceEncoding}">
 									<classpath refid="maven.test.classpath" />
 									<transaction src="src/main/resources/sql/h2/schema.sql" />
 									<transaction src="src/test/resources/data/import-data.sql" />

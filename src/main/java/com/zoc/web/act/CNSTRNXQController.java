@@ -40,7 +40,7 @@ public class CNSTRNXQController extends ActController<CNSTRNXQ> {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
 		model.addAttribute("MENUID", "CNSTRNXQ");
 		model.addAttribute("UNIT", 0);
-		model.addAttribute("TITLE", "表3.19 年新退休人员人数情况");
+		model.addAttribute("TITLE", "新退休人员人数情况");
 		return DEFAULT_PAGE;
 	}
 

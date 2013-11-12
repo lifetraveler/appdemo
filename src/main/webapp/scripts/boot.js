@@ -65,7 +65,6 @@ window.alert = function (str) {
             alertFun(str);
         }
     } catch (Exception) {
-        alertFun(str);
     }
 
 };

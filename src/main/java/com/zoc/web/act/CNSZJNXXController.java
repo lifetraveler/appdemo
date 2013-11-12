@@ -40,7 +40,7 @@ public class CNSZJNXXController extends ActController<CNSZJNXX> {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
 		model.addAttribute("MENUID", "CNSZJNXX");
 		model.addAttribute("UNIT", 0);
-		model.addAttribute("TITLE", "表3.11 年末参保职工人均缴费年限（含视同）情况（新人）");
+		model.addAttribute("TITLE", "年末参保职工人均缴费年限（含视同）情况（新人）");
 		return DEFAULT_PAGE;
 	}
 

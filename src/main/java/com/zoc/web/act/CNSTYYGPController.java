@@ -40,7 +40,7 @@ public class CNSTYYGPController extends ActController<CNSTYYGP> {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
 		model.addAttribute("MENUID", "CNSTYYGP");
 		model.addAttribute("UNIT", 2);
-		model.addAttribute("TITLE", "表3.21 年退休人员应发实账个人账户月平均养老金水平");
+		model.addAttribute("TITLE", "年退休人员应发实账个人账户月平均养老金水平");
 		return DEFAULT_PAGE;
 	}
 

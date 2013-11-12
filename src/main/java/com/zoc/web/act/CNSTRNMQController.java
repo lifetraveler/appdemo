@@ -40,7 +40,7 @@ public class CNSTRNMQController extends ActController<CNSTRNMQ> {
 		model.addAttribute("location", SuperUtils.getSubjectUser().getLocation());
 		model.addAttribute("MENUID", "CNSTRNMQ");
 		model.addAttribute("UNIT", 0);
-		model.addAttribute("TITLE", "表3.18 年末退休人员人数情况");
+		model.addAttribute("TITLE", "年末退休人员人数情况");
 		return DEFAULT_PAGE;
 	}
 

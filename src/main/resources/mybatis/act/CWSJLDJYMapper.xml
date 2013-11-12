@@ -41,7 +41,7 @@
 	<insert id="insert" parameterType="CWSJLDJY">
 		insert into ACT_CWSJLDJY
 		values
-		(#{year},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{c9},#{c10},#{c11},#{c12},#{c13},#{c14},#{c15},#{16},#{location})
+		(#{year},#{c2},#{c3},#{c4},#{c5},#{c6},#{c7},#{c8},#{c9},#{c10},#{c11},#{c12},#{c13},#{c14},#{c15},#{c16},#{location})
 	</insert>
 
 	<update id="update" parameterType="CWSJLDJY">
